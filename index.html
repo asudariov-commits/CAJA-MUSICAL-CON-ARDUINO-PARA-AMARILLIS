@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voces de Amarilis — Workbench Dual-MCU (AVR + RISC-V)</title>
+  <meta
+    name="description"
+    content="Workbench técnico interactivo del Proyecto Voces de Amarilis: Reproductor multimedia Dual-MCU Arduino Nano + ESP32-C3 + DFPlayer Mini + OLED SSD1306 + PAM8610 BTL."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Decorative Background PCB Traces -->
+  <svg class="pcb-bg-layer" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+    <g stroke="#d3bea3" stroke-width="1.5" fill="none">
+      <path d="M 0 110 H 190 L 230 150 H 430" />
+      <circle cx="430" cy="150" r="4" fill="#f6eddd" />
+      <path d="M 1440 210 H 1240 L 1190 260 H 980" />
+      <circle cx="980" cy="260" r="4" fill="#f6eddd" />
+      <path d="M 80 860 V 720 L 120 680 H 310" />
+      <circle cx="310" cy="680" r="4" fill="#f6eddd" />
+      <path d="M 1360 880 V 710 L 1310 660 H 1120" />
+      <circle cx="1120" cy="660" r="4" fill="#f6eddd" />
+    </g>
+  </svg>
+
+  <div class="app-shell">
+    <!-- Left Collapsible Sidebar (converts to bottom tab bar <= 768px) -->
+    <aside class="sidebar" aria-label="Navegación de mesa técnica">
+      <div class="sidebar-top">
+        <div class="sidebar-collapse-row">
+          <span class="sidebar-tag">WB · REV 2.0</span>
+          <button
+            id="sidebarCollapseBtn"
+            class="collapse-btn"
+            type="button"
+            title="Colapsar / Expandir barra lateral"
+            aria-label="Colapsar barra lateral"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav" id="sidebarNav">
+          <a class="nav-item active" href="#inicio" data-section="inicio">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+            <span class="nav-label">Inicio / Mesa</span>
+          </a>
+          <a class="nav-item" href="#hardware" data-section="hardware">
+            <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"></rect><path d="M9 1v5M15 1v5M9 18v5M15 18v5M1 9h5M1 15h5M18 9h5M18 15h5"></path></svg>
+            <span class="nav-label">Hardware</span>
+          </a>
+          <a class="nav-item" href="#firmware" data-section="firmware">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span class="nav-label">Firmware</span>
+          </a>
+          <a class="nav-item" href="#simulacion" data-section="simulacion">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M7 13l3-3 3 2 4-4"></path><path d="M8 21h8"></path></svg>
+            <span class="nav-label">Simulación</span>
+          </a>
+          <a class="nav-item" href="#resultados" data-section="resultados">
+            <svg viewBox="0 0 24 24"><path d="M3 3v18h18"></path><rect x="7" y="10" width="3" height="7"></rect><rect x="12" y="6" width="3" height="11"></rect><rect x="17" y="12" width="3" height="5"></rect></svg>
+            <span class="nav-label">Resultados</span>
+          </a>
+          <a class="nav-item" href="#equipo" data-section="equipo">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span class="nav-label">Equipo</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button id="toggleSignalFlow" class="sidebar-toggle" type="button" aria-pressed="true" title="Animar flujo de señal">
+          <span class="toggle-label">Flujo Señal</span>
+          <span class="toggle-dot"></span>
+        </button>
+        <button id="togglePcbTraces" class="sidebar-toggle" type="button" aria-pressed="true" title="Mostrar trazas PCB">
+          <span class="toggle-label">Trazas PCB</span>
+          <span class="toggle-dot"></span>
+        </button>
+        <div class="sidebar-meta">
+          UDH · IV Ciclo 2026<br />
+          Arduino Nano + ESP32-C3
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Column -->
+    <div class="main-wrap">
+      <!-- Sticky Top Header Bar -->
+      <header class="top-header">
+        <a class="brand-lockup" href="#inicio">
+          <!-- Custom Dual-MCU Infinity Geometric Mark -->
+          <svg class="brand-mark" viewBox="0 0 56 32" fill="none" aria-hidden="true">
+            <rect x="2" y="4" width="22" height="24" rx="4" fill="#18213d" stroke="#1aa3a1" stroke-width="1.8" />
+            <rect x="32" y="4" width="22" height="24" rx="4" fill="#24304a" stroke="#f0a53a" stroke-width="1.8" />
+            <path d="M13 16c0-4 5-6 9-2l6 4 6-4c4-4 9-2 9 2s-5 6-9 2l-6-4-6 4c-4 4-9 2-9-2z" stroke="#f6eddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div class="brand-text">
+            <span class="brand-title">VOCES DE AMARILIS</span>
+            <span class="brand-sub">EXPLORA · SIMULA · CONSTRUYE</span>
+          </div>
+        </a>
+
+        <div class="header-status">
+          <div class="status-pill" title="Todas las 6 reglas de seguridad eléctrica SPICE validadas">
+            <span class="pulse-dot"></span>
+            <span>6/6 SPICE PASS</span>
+          </div>
+          <div class="clock-pill" id="liveClock">2026-11-18 · 00:00:00</div>
+        </div>
+      </header>
+
+      <main class="content-container">
+        <!-- ================================================================
+             SECTION 1: HERO & INTERACTIVE DUAL-MCU WORKBENCH (#inicio)
+             ================================================================ -->
+        <section id="inicio" class="wb-section">
+          <div>
+            <span class="eyebrow">Arquitectura Maestro-Esclavo Heterogénea (AVR 5V + RISC-V 3.3V)</span>
+            <h1 class="hero-title">Mesa Interactiva: Caja Cultural "Voces de Amarilis"</h1>
+            <p class="lead-copy">
+              Sistema embebido multimedia desacoplado en dos microcontroladores: el <strong>Arduino Nano V3</strong>
+              (ATmega328P @ 5 V) gobierna los 4 sensores capacitivos <strong>TTP223</strong>, el audio MP3 por
+              <strong>DFPlayer Mini</strong> y la sincronización por hardware <code>BUSY → D12</code>, mientras el
+              <strong>ESP32-C3 SuperMini</strong> (RISC-V @ 160 MHz) decodifica video <code>128×64</code> desde
+              <strong>MicroSD SPI (20 MHz)</strong> hacia la pantalla <strong>OLED SSD1306 I2C (800 kHz)</strong>.
+            </p>
+          </div>
+
+          <!-- 4 KPI Pills -->
+          <div class="kpi-grid">
+            <div class="kpi-pill">
+              <span class="kpi-label">Pipeline Video 128×64</span>
+              <span class="kpi-value">77.3 FPS máx / 30 FPS estables</span>
+              <span class="kpi-sub">12.94 ms/cuadro · 38.8% ocupación bus</span>
+            </div>
+            <div class="kpi-pill">
+              <span class="kpi-label">Sincronía Audio-Video</span>
+              <span class="kpi-value">1.05 ms Sync BUSY</span>
+              <span class="kpi-sub">Flanco D12 + UART 115200 bps (D6→GPIO20)</span>
+            </div>
+            <div class="kpi-pill">
+              <span class="kpi-label">Etapa Potencia PAM8610 BTL</span>
+              <span class="kpi-value">1.392 A @ 8Ω PASS</span>
+              <span class="kpi-sub">6.244 W/ch · margen seguro &lt; 2.00 A</span>
+            </div>
+            <div class="kpi-pill">
+              <span class="kpi-label">Presupuesto Auditado</span>
+              <span class="kpi-value">S/ 235.50 BOM 23 ítems</span>
+              <span class="kpi-sub">Base S/ 192.50 + Video S/ 43.00</span>
+            </div>
+          </div>
+
+          <!-- Interactive 3D WebGL Workbench Stage + Synchronized Info Card -->
+          <div class="workbench-grid">
+            <article class="paper-card schematic-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad tr"></span>
+              <span class="pcb-pad bl"></span><span class="pcb-pad br"></span>
+
+              <div class="toolbar-row">
+                <span class="toolbar-title">Workbench 3D Interactivo (5 Zonas · 15 Módulos) — Arrastra · Clic en KCD1 / TTP223 / Pot</span>
+                <div class="legend-strip">
+                  <span class="legend-item"><span class="legend-swatch" style="background:#d93829;"></span>+12V_SW</span>
+                  <span class="legend-item"><span class="legend-swatch" style="background:#f08a24;"></span>+5.00V</span>
+                  <span class="legend-item"><span class="legend-swatch" style="background:#2563eb;"></span>UART/DFP</span>
+                  <span class="legend-item"><span class="legend-swatch" style="background:#0d9488;"></span>SPI 20M</span>
+                  <span class="legend-item"><span class="legend-swatch" style="background:#7c3aed;"></span>I2C/3V3</span>
+                  <span class="legend-item"><span class="legend-swatch" style="background:#06b6d4;"></span>Audio BTL</span>
+                </div>
+              </div>
+
+              <div class="stage-3d-wrap" id="stage3dWrap">
+                <canvas id="workbench3d" aria-label="Modelo 3D interactivo del circuito Voces de Amarilis en 5 zonas"></canvas>
+
+                <!-- 3D Projected SVG Dashed Leader Lines & Pulsing Hotspots -->
+                <svg id="calloutSvg" class="callout-svg" aria-hidden="true"></svg>
+
+                <!-- Floating Callout Cards Layer -->
+                <div id="calloutCardsLayer" class="callout-cards-layer"></div>
+
+                <!-- Top-Left Zone Chips & KCD1 Power Indicator -->
+                <div class="stage-top-hud">
+                  <div class="zone-chips" id="zoneChips" role="toolbar" aria-label="Zonas del circuito">
+                    <button class="zone-chip active" type="button" data-zone="all">Todo</button>
+                    <button class="zone-chip" type="button" data-zone="z1">Z1 Potencia</button>
+                    <button class="zone-chip" type="button" data-zone="z2">Z2 Audio</button>
+                    <button class="zone-chip" type="button" data-zone="z3">Z3 Nano</button>
+                    <button class="zone-chip" type="button" data-zone="z4">Z4 ESP32</button>
+                    <button class="zone-chip" type="button" data-zone="z5">Z5 OLED/Táctil</button>
+                  </div>
+                  <button class="power-pill-3d on" id="btnPower3d" type="button" title="Alternar Interruptor Maestro KCD1 (12V)">
+                    <span class="power-led-dot"></span>
+                    <span id="powerPillText">KCD1: ON · 12V</span>
+                  </button>
+                </div>
+
+                <!-- Top-Right Translucent Floating 2D Schematic Overlay (toggled by viewbar button) -->
+                <div class="schematic-overlay-card" id="schematicOverlayCard" hidden>
+                  <div class="sch-ov-head">
+                    <span>Mapa Conexión Real (Fritzing)</span>
+                    <div style="display:flex;gap:4px;">
+                      <button class="sch-ov-btn" id="btnSchOvExpand" type="button" title="Ampliar en Lightbox">⤢</button>
+                      <button class="sch-ov-btn" id="btnSchOvClose" type="button" title="Ocultar superposición">✕</button>
+                    </div>
+                  </div>
+                  <img src="assets/2_mapa_conexion_real_fritzing.png" alt="Mapa de conexión física real Fritzing 5 zonas" />
+                  <div class="sch-ov-foot">5 Zonas · R1=1kΩ · Div 1k+2k · 100µF · 2×1µF AC</div>
+                </div>
+
+                <!-- Bottom-Left 2D Minimap -->
+                <div class="minimap-box" id="minimapBox" title="Minimapa de las 5 zonas — Clic para enfocar">
+                  <svg id="minimapSvg" viewBox="0 0 130 84" aria-label="Minimapa de zonas del circuito">
+                    <rect x="2" y="2" width="126" height="80" rx="5" fill="#eef4ef" stroke="#c3d3cb" stroke-width="1" />
+                    <g class="mm-zone" data-mmzone="z1">
+                      <rect x="6" y="6" width="33" height="33" rx="3" fill="#fde9d9" stroke="#d97706" stroke-width="1" />
+                      <text x="22.5" y="25" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#9a3412">Z1</text>
+                    </g>
+                    <g class="mm-zone" data-mmzone="z2">
+                      <rect x="6" y="43" width="33" height="35" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
+                      <text x="22.5" y="63" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#075985">Z2</text>
+                    </g>
+                    <g class="mm-zone" data-mmzone="z3">
+                      <rect x="43" y="6" width="27" height="72" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1" />
+                      <text x="56.5" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#1e40af">Z3</text>
+                    </g>
+                    <g class="mm-zone" data-mmzone="z4">
+                      <rect x="74" y="6" width="27" height="72" rx="3" fill="#ede9fe" stroke="#7c3aed" stroke-width="1" />
+                      <text x="87.5" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#5b21b6">Z4</text>
+                    </g>
+                    <g class="mm-zone" data-mmzone="z5">
+                      <rect x="105" y="6" width="19" height="72" rx="3" fill="#ccfbf1" stroke="#0d9488" stroke-width="1" />
+                      <text x="114.5" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="700" fill="#115e59">Z5</text>
+                    </g>
+                    <!-- Live Camera Target & Heading -->
+                    <g id="minimapReticle" transform="translate(65, 42)">
+                      <circle cx="0" cy="0" r="8" fill="rgba(26,163,161,0.18)" stroke="#1aa3a1" stroke-width="1.2" />
+                      <polygon points="0,-6 3.5,2 0,0 -3.5,2" fill="#e5533d" />
+                      <circle cx="0" cy="0" r="2.2" fill="#18213d" />
+                    </g>
+                  </svg>
+                </div>
+
+                <!-- Bottom-Center Floating Viewbar -->
+                <div class="viewbar-3d" id="viewbar3d" role="toolbar" aria-label="Controles de cámara y vista 3D">
+                  <button class="vb-btn" id="btnCamRotL" type="button" title="Rotar izquierda (↺)">↺</button>
+                  <button class="vb-btn" id="btnCamRotR" type="button" title="Rotar derecha (↻)">↻</button>
+                  <span class="vb-sep" aria-hidden="true"></span>
+                  <button class="vb-btn" id="btnCamZoomOut" type="button" title="Alejar zoom (−)">−</button>
+                  <button class="vb-btn" id="btnCamZoomIn" type="button" title="Acercar zoom (+)">+</button>
+                  <span class="vb-sep" aria-hidden="true"></span>
+                  <button class="vb-btn" id="btnCamReset" type="button" title="Restablecer vista general (⌖)">⌖</button>
+                  <button class="vb-btn active" id="btnToggleFlow3d" type="button" aria-pressed="true" title="Flujo de corriente 3D (⚡)">⚡</button>
+                  <button class="vb-btn active" id="btnToggleLabels3d" type="button" aria-pressed="true" title="Etiquetas flotantes (🏷)">🏷</button>
+                  <button class="vb-btn" id="btnToggleSchematic3d" type="button" aria-pressed="false" title="Superposición esquemático 2D (⊞)">⊞</button>
+                </div>
+
+                <!-- Clean WebGL Fallback (only shown if WebGL fails) -->
+                <div class="stage-fallback" id="stageFallback" hidden>
+                  <div class="fallback-notice">
+                    <strong>Modo Esquemático 2D (WebGL no disponible en este navegador)</strong>
+                    <span>Mostrando diagrama físico completo de 5 zonas y 15 módulos.</span>
+                  </div>
+                  <img src="assets/2_mapa_conexion_real_fritzing.png" alt="Mapa de conexión física real Fritzing" />
+                </div>
+              </div>
+            </article>
+
+            <!-- Right-Side Synchronized Info Card -->
+            <aside class="paper-card info-card" aria-live="polite">
+              <span class="pcb-pad tl"></span><span class="pcb-pad tr"></span>
+              <span class="pcb-pad bl"></span><span class="pcb-pad br"></span>
+
+              <div>
+                <div class="info-card-head">
+                  <img id="infoThumb" class="info-thumb" src="assets/componentes/arduino_nano.webp" alt="Arduino Nano V3" />
+                  <div class="info-head-meta">
+                    <div id="infoKicker" class="info-node-kicker">MCU MAESTRO · 5.0V</div>
+                    <h2 id="infoTitle" class="info-node-title">Arduino Nano V3</h2>
+                  </div>
+                  <span id="infoStatus" class="badge badge-safe">PASS</span>
+                </div>
+
+                <div class="tab-bar" role="tablist" style="margin-top: 12px;">
+                  <button class="tab-btn active" type="button" data-infotab="resumen">RESUMEN</button>
+                  <button class="tab-btn" type="button" data-infotab="pines">PINES</button>
+                  <button class="tab-btn" type="button" data-infotab="electrico">ELÉCTRICO</button>
+                  <button class="tab-btn" type="button" data-infotab="specs">ESPECIF.</button>
+                </div>
+
+                <div id="infoBody" class="info-body" style="margin-top: 12px;"></div>
+              </div>
+
+              <div class="info-nav-footer">
+                <button id="prevNodeBtn" class="btn-outline" type="button">← Anterior</button>
+                <span id="nodeCounter" class="mono" style="font-size:0.75rem;color:var(--muted);">3 / 9</span>
+                <button id="nextNodeBtn" class="btn-outline" type="button">Siguiente →</button>
+              </div>
+            </aside>
+          </div>
+
+          <!-- Horizontal Hardware Component Strip (All 22 Real Photos) -->
+          <div class="paper-card component-strip-card">
+            <div class="toolbar-row" style="margin-bottom: 6px;">
+              <span class="toolbar-title">Inventario Fotográfico Real de Componentes (22 referencias físicas)</span>
+              <span class="mono" style="font-size:0.72rem;color:var(--muted);" id="stripHint">Clic en cualquier componente para inspeccionar su nodo</span>
+            </div>
+            <div class="component-strip" id="componentStrip"></div>
+          </div>
+
+          <!-- Live Interactive Amarilis Box Simulator -->
+          <article class="paper-card amarilis-sim-card">
+            <span class="pcb-pad tl"></span><span class="pcb-pad tr"></span>
+            <span class="pcb-pad bl"></span><span class="pcb-pad br"></span>
+
+            <div class="toolbar-row">
+              <div>
+                <span class="eyebrow">Simulador Funcional en Tiempo Real</span>
+                <h2 class="section-title">Caja Interactiva Amarilis: OLED 128×64 + 4× TTP223 + Monitor UART</h2>
+              </div>
+              <div class="sim-state-readout">
+                <span class="badge badge-navy" id="simTrackBadge">PISTA 01 · VALS AMARILIS</span>
+                <span class="badge badge-safe" id="simStateBadge">PLAYING</span>
+                <span class="badge badge-teal" id="simVolBadge">VOL 20/30</span>
+              </div>
+            </div>
+
+            <div class="sim-layout">
+              <!-- MDF Box Bezel + 128x64 Canvas + 4 TTP223 Touch Pads -->
+              <div class="mdf-bezel">
+                <div class="mdf-header">
+                  <span>CAJA MDF ≤ 3.0 mm · PANEL FRONTAL</span>
+                  <span>OLED SSD1306 · I2C 800 kHz · 0x3C</span>
+                </div>
+
+                <div class="oled-frame">
+                  <div class="oled-pcb-label">
+                    <span>VCC:3V3 · GND · SCL:G9 · SDA:G8</span>
+                    <span id="oledFpsTag">128×64 MONO · 30 FPS</span>
+                  </div>
+                  <canvas id="oledCanvas" width="128" height="64" aria-label="Pantalla OLED simulada 128 por 64"></canvas>
+                </div>
+
+                <div class="ttp-grid">
+                  <button class="ttp-pad" id="btnPadPlay" type="button">
+                    <span class="ttp-led"></span>
+                    <span class="ttp-pin">TTP223 #1 · D2</span>
+                    <span class="ttp-name">Play / Pause</span>
+                    <span class="ttp-hint">Clic: Pausa/Reanuda</span>
+                  </button>
+                  <button class="ttp-pad" id="btnPadNext" type="button">
+                    <span class="ttp-led"></span>
+                    <span class="ttp-pin">TTP223 #2 · D3</span>
+                    <span class="ttp-name">Siguiente</span>
+                    <span class="ttp-hint">Pista 01 → 04</span>
+                  </button>
+                  <button class="ttp-pad" id="btnPadPrev" type="button">
+                    <span class="ttp-led"></span>
+                    <span class="ttp-pin">TTP223 #3 · D4</span>
+                    <span class="ttp-name">Anterior</span>
+                    <span class="ttp-hint">Pista 04 → 01</span>
+                  </button>
+                  <button class="ttp-pad" id="btnPadMute" type="button">
+                    <span class="ttp-led"></span>
+                    <span class="ttp-pin">TTP223 #4 · D5</span>
+                    <span class="ttp-name">Mute / Unmute</span>
+                    <span class="ttp-hint">Corto: Mute · Largo: Vol+</span>
+                  </button>
+                </div>
+
+                <div class="sim-controls-row">
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="btn-outline" id="btnSimStop" type="button">■ STOP (D2 Largo ≥800ms)</button>
+                    <button class="btn-outline" id="btnSimVolUp" type="button">🔊 Vol+ Cíclico (D5 Largo)</button>
+                  </div>
+                  <span class="mono" style="font-size:0.71rem;color:#3d2814;" id="simTimeReadout">t = 00:00 · SYNC:1000ms</span>
+                </div>
+              </div>
+
+              <!-- Collapsible Serial / UART Monitor -->
+              <div class="uart-monitor" id="uartMonitor">
+                <div class="uart-head">
+                  <span>MONITOR SERIAL / UART (D11↔DFP 9600 · D6→GPIO20 115200 bps)</span>
+                  <div class="uart-head-actions">
+                    <button class="uart-btn" id="btnUartClear" type="button">Limpiar</button>
+                    <button class="uart-btn" id="btnUartCollapse" type="button">Colapsar</button>
+                  </div>
+                </div>
+                <div class="uart-log" id="uartLog" aria-live="polite"></div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- ================================================================
+             SECTION 2: INTERACTIVE HARDWARE & SPICE SAFETY SIMULATOR (#hardware)
+             ================================================================ -->
+        <section id="hardware" class="wb-section">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Ingeniería de Circuitos y Auditoría SPICE</span>
+              <h2 class="section-title">Subsistemas de Hardware y Simulador de Fallos Eléctricos</h2>
+            </div>
+            <span class="badge badge-safe">Validado ODE RK45 + SPICE3</span>
+          </div>
+
+          <!-- 5 Subsystems Deep-Dive Cards -->
+          <div class="subsystem-grid">
+            <article class="paper-card subsys-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <span class="subsys-num">01 · CONTROL MAESTRO</span>
+              <h3>Arduino Nano V3 (AVR)</h3>
+              <p>Ejecuta lectura capacitiva con antirrebote de 50 ms (D2–D5), trama binaria DFPlayer (D10/D11), detección BUSY (D12) y envío UART 115200 bps por D6.</p>
+              <div class="subsys-specs">ATmega328P · 5.00V en pin +5V (VIN libre) · 25–30 mA</div>
+            </article>
+
+            <article class="paper-card subsys-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <span class="subsys-num">02 · COPROCESADOR VIDEO</span>
+              <h3>ESP32-C3 SuperMini (RISC-V)</h3>
+              <p>Recibe tramas <code>PLAY/SYNC/PAUSE/MUTE</code> en GPIO20 via divisor 1kΩ+2kΩ (3.333 V), confirma <code>ACK</code> en GPIO21 y elimina deriva de fotogramas.</p>
+              <div class="subsys-specs">160 MHz · IO 3.3V · V_IH ≥ 2.475 V · V_max = 3.60 V</div>
+            </article>
+
+            <article class="paper-card subsys-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <span class="subsys-num">03 · BUSES SPI + I2C</span>
+              <h3>MicroSD 20 MHz + OLED 800 kHz</h3>
+              <p>Lectura cruda de 1024 B/cuadro en 1.05 ms (SPI GPIO4–7, VCC +5.00V por AMS1117). Volcado SSD1306 I2C 800 kHz (GPIO8–9, VCC 3V3 del ESP32-C3) en 11.54 ms.</p>
+              <div class="subsys-specs">Total 12.94 ms/cuadro · 77.3 FPS máx · 30 FPS estables</div>
+            </article>
+
+            <article class="paper-card subsys-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <span class="subsys-num">04 · BOTONERA OCULTA</span>
+              <h3>4× Sensores TTP223 (≤ 3 mm)</h3>
+              <p>Salida CMOS push-pull activa en HIGH con jumpers A/B abiertos (modo momentáneo). Detecta tacto capacitivo bajo panel MDF fresado a ≤ 3.0 mm.</p>
+              <div class="subsys-specs">D2 Play/Stop · D3 Sig · D4 Ant · D5 Mute/Vol+</div>
+            </article>
+
+            <article class="paper-card subsys-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <span class="subsys-num">05 · POTENCIA Y AUDIO BTL</span>
+              <h3>LM2596 + PAM8610 + 8 Ω</h3>
+              <p>Entrada 12V 2A con switch KCD1 y filtro 1000 µF. LM2596 pre-calibrado a 5.00V + 100 µF local. Acople 2× 1 µF bloquea 1.50 V DC antes del PAM8610 BTL (Vcm = 6.00 V).</p>
+              <div class="subsys-specs">8Ω: 6.244 W/ch · 1.392 A PASS · Prohibido OUT- a GND</div>
+            </article>
+          </div>
+
+          <!-- 3 Interactive Electrical Fault / Safety Toggles -->
+          <div class="spice-sim-grid">
+            <!-- Toggle 1: Speaker 8 Ohm vs 4 Ohm -->
+            <article class="paper-card fault-card state-safe" id="faultCardSpk">
+              <div class="toolbar-row">
+                <span class="mono" style="font-size:0.72rem;font-weight:700;color:var(--navy);">TEST 1 · IMPEDANCIA PARLANTES</span>
+                <span class="badge badge-safe" id="spkBadge">PASS SEGURO</span>
+              </div>
+              <div class="seg-switch">
+                <button class="seg-btn active-safe" type="button" id="btnSpk8">8 Ω (Recomendado)</button>
+                <button class="seg-btn" type="button" id="btnSpk4">4 Ω (Crítico 100%)</button>
+              </div>
+              <div class="fault-metrics">
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Potencia / Canal (32 dB)</div>
+                  <div class="fault-metric-val" id="spkPowerVal">6.244 W/ch</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Corriente Total 12V</div>
+                  <div class="fault-metric-val" id="spkCurrVal">1.392 A</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Audio Total Estéreo</div>
+                  <div class="fault-metric-val" id="spkTotalVal">12.488 W</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Límite Fuente 12V 2A</div>
+                  <div class="fault-metric-val" id="spkLimitVal">69.6% (≤ 2.00 A)</div>
+                </div>
+              </div>
+              <div class="meter-track"><div class="meter-fill" id="spkMeter" style="width:46.4%;background:var(--safe);"></div></div>
+              <p class="fault-note" id="spkNote">
+                Con 8 Ω al 100% de volumen, la corriente en 12 V alcanza 1.392 A (margen seguro bajo 2.00 A, η=87%).
+              </p>
+            </article>
+
+            <!-- Toggle 2: +5V Stabilizer 100uF vs Without 100uF -->
+            <article class="paper-card fault-card state-safe" id="faultCardCap">
+              <div class="toolbar-row">
+                <span class="mono" style="font-size:0.72rem;font-weight:700;color:var(--navy);">TEST 2 · RÁFAGA SPI 20 MHz (+180 mA)</span>
+                <span class="badge badge-safe" id="capBadge">PASS (&lt; 15 mV)</span>
+              </div>
+              <div class="seg-switch">
+                <button class="seg-btn active-safe" type="button" id="btnCapWith">CON 100 µF + 100 nF</button>
+                <button class="seg-btn" type="button" id="btnCapWithout">SIN 100 µF (solo 100 nF)</button>
+              </div>
+              <div class="fault-metrics">
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Caída Dinámica (Droop)</div>
+                  <div class="fault-metric-val" id="capDroopVal">14.18 mV</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Tensión Mínima Nodo</div>
+                  <div class="fault-metric-val" id="capMinVal">4.9723 V</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Caída desde 5.00 V</div>
+                  <div class="fault-metric-val" id="capDrop5Val">27.68 mV</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Factor Reducción</div>
+                  <div class="fault-metric-val" id="capFactorVal">18.11×</div>
+                </div>
+              </div>
+              <div class="meter-track"><div class="meter-fill" id="capMeter" style="width:8%;background:var(--safe);"></div></div>
+              <p class="fault-note" id="capNote">
+                El capacitor electrolítico de 100 µF junto al ESP32-C3/MicroSD amortigua la inductancia Dupont (0.35 µH) y evita reinicios por brownout.
+              </p>
+            </article>
+
+            <!-- Toggle 3: Level Shifter D6 -> GPIO20 -->
+            <article class="paper-card fault-card state-safe" id="faultCardDiv">
+              <div class="toolbar-row">
+                <span class="mono" style="font-size:0.72rem;font-weight:700;color:var(--navy);">TEST 3 · NIVEL D6 → GPIO20</span>
+                <span class="badge badge-safe" id="divBadge">PASS (3.333 V)</span>
+              </div>
+              <div class="seg-switch">
+                <button class="seg-btn active-safe" type="button" id="btnDivWith">CON Divisor 1kΩ + 2kΩ</button>
+                <button class="seg-btn" type="button" id="btnDivWithout">SIN Divisor (5V directo)</button>
+              </div>
+              <div class="fault-metrics">
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Tensión en GPIO20</div>
+                  <div class="fault-metric-val" id="divVoltVal">3.333 V</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Corriente / Inyección ESD</div>
+                  <div class="fault-metric-val" id="divCurrVal">1.67 mA</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Ancho Banda RC</div>
+                  <div class="fault-metric-val" id="divBwVal">29.84 MHz</div>
+                </div>
+                <div class="fault-metric-box">
+                  <div class="fault-metric-label">Límite Absoluto ESP32</div>
+                  <div class="fault-metric-val" id="divLimVal">≤ 3.60 V / 10 mA</div>
+                </div>
+              </div>
+              <div class="meter-track"><div class="meter-fill" id="divMeter" style="width:17%;background:var(--safe);"></div></div>
+              <p class="fault-note" id="divNote">
+                R2=1kΩ en serie y R3+R4=2kΩ a GND mantienen GPIO20 en 3.333 V (3.306 V real con R_out AVR), con margen +0.858 V sobre V_IH y subida de 11.0 ns.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             SECTION 3: FLOWCHART & FULL FIRMWARE VIEWER (#firmware)
+             ================================================================ -->
+        <section id="firmware" class="wb-section">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Flujo de Ejecución y Código Fuente Íntegro</span>
+              <h2 class="section-title">Diagrama de Flujo Dual-MCU, Protocolo UART y Código Fuente</h2>
+            </div>
+            <span class="badge badge-teal">100% Sin Abreviaciones · 1,211 Líneas Totales</span>
+          </div>
+
+          <!-- Zoomable Flowchart -->
+          <article class="paper-card flowchart-card">
+            <span class="pcb-pad tl"></span><span class="pcb-pad tr"></span>
+            <div class="toolbar-row">
+              <span class="toolbar-title">Figura 4 — Diagrama de Flujo Maestro (Arduino Nano) ↔ Esclavo (ESP32-C3)</span>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button class="btn-outline" type="button" id="flowZoomOut">− Zoom</button>
+                <button class="btn-outline" type="button" id="flowZoomReset">100%</button>
+                <button class="btn-outline" type="button" id="flowZoomIn">+ Zoom</button>
+                <button class="btn-primary" type="button" id="flowOpenModal">Abrir en Lightbox</button>
+              </div>
+            </div>
+            <div class="flowchart-viewport" id="flowchartViewport">
+              <img
+                id="flowchartImg"
+                src="assets/fig4_diagrama_flujo_dual_mcu.svg"
+                alt="Diagrama de flujo de sincronización Dual-MCU entre Arduino Nano y ESP32-C3"
+                style="width:100%;"
+              />
+            </div>
+          </article>
+
+          <!-- UART Protocol Command Table -->
+          <article class="paper-card">
+            <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+            <div class="toolbar-row" style="margin-bottom:10px;">
+              <span class="toolbar-title">Protocolo de Sincronización UART0 (115200 bps · 8N1 · Nano D6 → Divisor → ESP32 GPIO20)</span>
+              <span class="badge badge-navy">Retorno ACK: GPIO21 → Nano D7</span>
+            </div>
+            <div class="table-wrap">
+              <table class="tech-table">
+                <thead>
+                  <tr>
+                    <th>Trama ASCII (TX Nano)</th>
+                    <th>Disparador Hardware</th>
+                    <th>Acción Esclavo ESP32-C3</th>
+                    <th>Confirmación (TX ESP32)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>PLAY:&lt;track&gt;</code></td>
+                    <td>Flanco HIGH→LOW en BUSY (D12 &lt; 1.5 ms)</td>
+                    <td>Abre <code>/vid_XX.bin</code>, reinicia timer <code>FRAME_INTERVAL_US</code> y renderiza cuadro 0.</td>
+                    <td><code>ACK:PLAY:01</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>PAUSE</code></td>
+                    <td>Toque corto TTP223 #1 (D2) durante reproducción</td>
+                    <td>Congela video en último cuadro mostrado y superpone insignia <code>drawPauseBadge()</code>.</td>
+                    <td><code>ACK:PAUSE</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>RESUME</code></td>
+                    <td>Toque corto TTP223 #1 (D2) estando pausado</td>
+                    <td>Reanuda reproducción inmediata desde el cuadro actual eliminando insignia de pausa.</td>
+                    <td><code>ACK:RESUME</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>STOP</code></td>
+                    <td>Toque largo D2 (≥ 800 ms) o fin de pista (BUSY HIGH)</td>
+                    <td>Cierra archivo <code>.bin</code> y muestra pantalla <code>REPRODUCTOR LISTO / ESPERANDO AUDIO</code>.</td>
+                    <td><code>ACK:STOP</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>MUTE</code> / <code>MUTE:0|1</code></td>
+                    <td>Toque corto TTP223 #4 (D5)</td>
+                    <td>Alterna bandera <code>isMuted</code> y dibuja icono altavoz+X 14×11 en esquina superior derecha.</td>
+                    <td><code>ACK:MUTE</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>SYNC:&lt;track&gt;:&lt;ms&gt;</code></td>
+                    <td>Temporizador maestro cada <code>1000 ms</code></td>
+                    <td>Calcula <code>targetFrame</code>; si desfase ≥ 2 cuadros corrige puntero evitando deriva.</td>
+                    <td><code>ACK:SYNC:01:1000</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Full Code Viewer (PRUÉBALO / CÓDIGO FUENTE) -->
+          <article class="paper-card code-viewer-card" id="codeViewerCard">
+            <div class="code-toolbar">
+              <div class="code-tabs" role="tablist">
+                <button class="code-tab-btn active" type="button" data-codekey="nano">firmware_maestro_nano.ino</button>
+                <button class="code-tab-btn" type="button" data-codekey="esp32">firmware_esclavo_esp32c3.ino</button>
+                <button class="code-tab-btn" type="button" data-codekey="spice">reproductor_multimedia_amarilis.cir</button>
+              </div>
+              <div class="code-actions">
+                <button class="btn-outline" type="button" id="btnExpandCode">Expandir</button>
+                <button class="btn-primary" type="button" id="btnCopyCode">Copiar código</button>
+              </div>
+            </div>
+            <div class="code-meta-bar">
+              <span id="codeMetaFile">D:\AntGra\Proteus\nuevo resultado\firmware_maestro_nano.ino</span>
+              <span id="codeMetaStats">C++ / Arduino AVR · 537 líneas · Íntegro</span>
+            </div>
+            <div class="code-scroll" id="codeScroll">
+              <table class="code-table" id="codeTable"></table>
+            </div>
+          </article>
+        </section>
+
+        <!-- ================================================================
+             SECTION 4: PROTEUS SIMULATION & WIRING GALLERY (#simulacion)
+             ================================================================ -->
+        <section id="simulacion" class="wb-section">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Esquemáticos Proteus 8.13, Fritzing y Diagramas SPICE</span>
+              <h2 class="section-title">Galería de Simulación y Cableado Físico (9 Láminas)</h2>
+            </div>
+            <div class="filter-pills" id="galleryFilters">
+              <button class="filter-btn active" type="button" data-filter="all">Todos (9)</button>
+              <button class="filter-btn" type="button" data-filter="proteus">Proteus (3)</button>
+              <button class="filter-btn" type="button" data-filter="fisica">Conexión Física (2)</button>
+              <button class="filter-btn" type="button" data-filter="spice">Diagramas SPICE (4)</button>
+            </div>
+          </div>
+
+          <div class="gallery-grid" id="galleryGrid"></div>
+        </section>
+
+        <!-- ================================================================
+             SECTION 5: RESULTS, METRICS, BOM & CONCLUSIONS (#resultados)
+             ================================================================ -->
+        <section id="resultados" class="wb-section">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Evidencia Cuantitativa y Presupuesto Auditado</span>
+              <h2 class="section-title">Resultados SPICE, Comparativa Arquitectónica y BOM (23 Ítems)</h2>
+            </div>
+            <span class="badge badge-safe">TOTAL VALIDADO: S/ 235.50</span>
+          </div>
+
+          <!-- 6 SPICE PASS Rule Cards -->
+          <div class="rules-grid" id="rulesGrid"></div>
+
+          <!-- Performance Chart + Monolithic vs Dual-MCU Comparison Table -->
+          <div class="results-split">
+            <article class="paper-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <div class="toolbar-row" style="margin-bottom:10px;">
+                <span class="toolbar-title">Figura 5 — Métricas SPICE de Potencia, Droop 5V y Rendimiento</span>
+                <span class="badge badge-teal">Clic para ampliar</span>
+              </div>
+              <div class="chart-preview-box" id="chartPreviewBtn">
+                <img
+                  src="assets/fig5_metricas_spice_rendimiento.png"
+                  alt="Gráfico de métricas SPICE de potencia, caída 5V y rendimiento de fotogramas"
+                />
+              </div>
+            </article>
+
+            <article class="paper-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <div class="toolbar-row" style="margin-bottom:10px;">
+                <span class="toolbar-title">Comparativa: Monolítico vs Dual-MCU (Maestro-Esclavo)</span>
+                <span class="badge badge-safe">Arquitectura Elegida</span>
+              </div>
+              <div class="table-wrap">
+                <table class="tech-table">
+                  <thead>
+                    <tr>
+                      <th>Criterio Técnico</th>
+                      <th>Monolítico (1 MCU AVR)</th>
+                      <th>Dual-MCU (Nano + ESP32-C3)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Tasa de Video OLED</strong></td>
+                      <td>Limitada (&lt; 8 FPS por RAM 2 KB y SPI/I2C lento)</td>
+                      <td><strong>77.3 FPS máx / 30 FPS estables</strong> (12.94 ms/cuadro)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Aislamiento de Buses</strong></td>
+                      <td>Contención entre polling táctil, UART MP3 y SD</td>
+                      <td><strong>Desacoplado</strong>: Nano audio/táctil · ESP32 SPI 20MHz + I2C 800kHz</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Sincronía Audio-Video</strong></td>
+                      <td>Deriva acumulativa sin buffer de cuadro</td>
+                      <td><strong>1.05 ms</strong> flanco BUSY→D12 + <code>SYNC</code> cada 1000 ms</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Almacenamiento FAT32</strong></td>
+                      <td>Contienda lectura MP3 + cuadros en 1 SD</td>
+                      <td><strong>Doble MicroSD</strong> independiente (Audio MP3 / Video .BIN)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Seguridad de Niveles</strong></td>
+                      <td>Riesgo sobrebus 5V en OLED/SD</td>
+                      <td>Divisor <strong>1kΩ+2kΩ (3.333V)</strong> + OLED <strong>3V3</strong> + <strong>100µF</strong> local</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Costo Total Validado</strong></td>
+                      <td>S/ 192.50 (solo audio sin video fluido)</td>
+                      <td><strong>S/ 235.50</strong> (+S/ 43.00 expansión RISC-V + OLED)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+
+          <!-- Searchable / Filterable 23-Item BOM Table -->
+          <article class="paper-card">
+            <span class="pcb-pad tl"></span><span class="pcb-pad tr"></span>
+            <span class="pcb-pad bl"></span><span class="pcb-pad br"></span>
+
+            <div class="bom-controls" style="margin-bottom:14px;">
+              <div>
+                <span class="toolbar-title">Presupuesto Detallado BOM (23 Ítems · Soles Peruanos S/)</span>
+                <div class="mono" style="font-size:0.73rem;color:var(--muted);margin-top:3px;">
+                  Sistema Base: <strong>S/ 192.50</strong> (19 ítems) + Expansión Video: <strong>S/ 43.00</strong> (4 ítems) = <strong>S/ 235.50</strong>
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+                <div class="filter-pills" id="bomFilters">
+                  <button class="filter-btn active" type="button" data-bomcat="all">Todos (23)</button>
+                  <button class="filter-btn" type="button" data-bomcat="base">Sistema Base (19)</button>
+                  <button class="filter-btn" type="button" data-bomcat="video">Video (4)</button>
+                </div>
+                <input
+                  id="bomSearch"
+                  class="search-input"
+                  type="search"
+                  placeholder="Buscar componente o pin..."
+                  aria-label="Buscar en tabla BOM"
+                />
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table class="tech-table" id="bomTable">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Categoría</th>
+                    <th>Componente / Material</th>
+                    <th>Especificación Verificada</th>
+                    <th>Cant.</th>
+                    <th style="text-align:right;">P. Unit (S/)</th>
+                    <th style="text-align:right;">Subtotal (S/)</th>
+                  </tr>
+                </thead>
+                <tbody id="bomTableBody"></tbody>
+              </table>
+            </div>
+
+            <div class="kpi-grid" style="margin-top:14px;">
+              <div class="kpi-pill">
+                <span class="kpi-label">Auditoría Resistencias 1kΩ</span>
+                <span class="kpi-value">4 / 4 Usadas</span>
+                <span class="kpi-sub">R1 UART DFP + R2/R3/R4 divisor (0 repuesto)</span>
+              </div>
+              <div class="kpi-pill">
+                <span class="kpi-label">Verificación LM2596</span>
+                <span class="kpi-value">5.00 V Pre-calibrado</span>
+                <span class="kpi-sub">Medir antes de conectar Nano/ESP32/SD</span>
+              </div>
+              <div class="kpi-pill">
+                <span class="kpi-label">Polaridad Acople 1 µF</span>
+                <span class="kpi-value">(+) Hacia DAC_L/R</span>
+                <span class="kpi-sub">Bloquea 1.50V DC a -0.00063V DC</span>
+              </div>
+              <div class="kpi-pill">
+                <span class="kpi-label">Topología BTL PAM8610</span>
+                <span class="kpi-value">Vcm = 6.00 V DC</span>
+                <span class="kpi-sub">Nunca unir OUTL- / OUTR- a GND</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- ================================================================
+             SECTION 6: EQUIPO DE TRABAJO & FOOTER (#equipo)
+             ================================================================ -->
+        <section id="equipo" class="wb-section">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Universidad de Huánuco · Facultad de Ingeniería</span>
+              <h2 class="section-title">Equipo de Trabajo y Ficha Académica</h2>
+            </div>
+            <span class="badge badge-navy">IV Ciclo · 2026</span>
+          </div>
+
+          <div class="team-grid">
+            <article class="paper-card member-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <div class="member-avatar">MR</div>
+              <h3>Mendoza Ramos Jhiré Aarón</h3>
+              <span class="member-role">ARQUITECTURA HARDWARE &amp; POTENCIA</span>
+              <p class="member-desc">Diseño de etapa de alimentación 12V→5V LM2596, auditoría de parlantes BTL 8Ω y validación eléctrica SPICE.</p>
+            </article>
+
+            <article class="paper-card member-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <div class="member-avatar">SR</div>
+              <h3>Sudario Ramos Andres Valois</h3>
+              <span class="member-role">FIRMWARE DUAL-MCU &amp; SIMULACIÓN</span>
+              <p class="member-desc">Desarrollo de firmware maestro AVR / esclavo RISC-V, protocolo UART 115200 bps y análisis transitorio ODE/SPICE.</p>
+            </article>
+
+            <article class="paper-card member-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <div class="member-avatar">BR</div>
+              <h3>Berrios Rios Santiago</h3>
+              <span class="member-role">ESQUEMÁTICO PROTEUS &amp; CABLEADO</span>
+              <p class="member-desc">Captura esquemática en Proteus 8.13, mapa de conexión física en protoboard y control de niveles lógicos 5V↔3.3V.</p>
+            </article>
+
+            <article class="paper-card member-card">
+              <span class="pcb-pad tl"></span><span class="pcb-pad br"></span>
+              <div class="member-avatar">PC</div>
+              <h3>Ponce Custodio Astrid</h3>
+              <p class="member-role" style="margin:0;">INTERFAZ CULTURAL &amp; DOCUMENTACIÓN</p>
+              <p class="member-desc">Curaduría multimedia de Amarilis, pruebas táctiles TTP223 bajo MDF ≤ 3 mm y consolidación del informe técnico.</p>
+            </article>
+          </div>
+
+          <article class="paper-card academic-banner">
+            <div>
+              <div class="eyebrow" style="margin-bottom:4px;">Programa Académico de Ingeniería de Sistemas e Informática</div>
+              <h3 style="font-size:1.2rem;">Universidad de Huánuco · Facultad de Ingeniería</h3>
+              <p style="margin:4px 0 0;font-size:0.92rem;">
+                Proyecto <strong>"Voces de Amarilis"</strong> — Organización y Arquitectura del Computador / Arquitectura de Computadores (IV Ciclo, 2026)
+              </p>
+            </div>
+            <div style="text-align:right;">
+              <div class="mono" style="font-size:0.72rem;color:var(--muted);">DOCENTE DEL CURSO</div>
+              <div style="font-family:var(--font-cond);font-size:1.12rem;font-weight:700;color:var(--navy);">
+                Ing. Mg. Dr. Freddy Ronald Huapaya Condori
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="wb-footer">
+        <div class="footer-inner">
+          <div>
+            <strong>Proyecto "Voces de Amarilis"</strong> — Arquitectura de Computadores (IV Ciclo, 2026)<br />
+            Universidad de Huánuco · Facultad de Ingeniería · Ingeniería de Sistemas e Informática<br />
+            Docente: <strong>Ing. Mg. Dr. Freddy Ronald Huapaya Condori</strong>
+          </div>
+          <div style="text-align:right;">
+            <div class="footer-members">
+              Mendoza Ramos Jhiré Aarón · Sudario Ramos Andres Valois<br />
+              Berrios Rios Santiago · Ponce Custodio Astrid
+            </div>
+            <div class="mono" style="font-size:0.7rem;color:var(--muted);margin-top:4px;">
+              Workbench Estático Offline · 6/6 Reglas SPICE PASS · BOM S/ 235.50
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal for Diagrams & Schematics -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+    <div class="lightbox-bar">
+      <div class="lightbox-title" id="lightboxTitle">Vista de Diagrama</div>
+      <div class="lightbox-controls">
+        <button class="uart-btn" type="button" id="lbPrev">← Anterior</button>
+        <button class="uart-btn" type="button" id="lbNext">Siguiente →</button>
+        <button class="uart-btn" type="button" id="lbZoomOut">− Zoom</button>
+        <button class="uart-btn" type="button" id="lbZoomReset">100%</button>
+        <button class="uart-btn" type="button" id="lbZoomIn">+ Zoom</button>
+        <button class="uart-btn" type="button" id="lbClose" style="background:var(--high);border-color:var(--high);color:#fff;">Cerrar (Esc)</button>
+      </div>
+    </div>
+    <div class="lightbox-stage">
+      <img id="lightboxImg" src="" alt="Vista ampliada" />
+    </div>
+    <div class="lightbox-desc" id="lightboxDesc"></div>
+  </div>
+
+  <script src="assets/three.min.js"></script>
+  <script src="scene3d.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

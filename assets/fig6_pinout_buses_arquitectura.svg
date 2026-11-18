@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1800" height="1020" viewBox="0 0 1800 1020">
+<defs>
+  <filter id="cardShadow" x="-4%" y="-4%" width="108%" height="110%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.06"/></filter>
+  <marker id="arrTouch" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#CA8A04"/></marker>
+  <marker id="arrUART" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/></marker>
+  <marker id="arr3V3" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/></marker>
+  <marker id="arrSPI" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/></marker>
+  <marker id="arrSafe" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#059669"/></marker>
+  <marker id="arr5V" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/></marker>
+  <marker id="arrAudio" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0891B2"/></marker>
+</defs>
+<rect x="0.0" y="0.0" width="1800.0" height="1020.0" rx="0.0" ry="0.0" fill="#FFFFFF" stroke="none" stroke-width="0" />
+<text x="900.0" y="42.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="23.5" font-weight="700" fill="#0F172A" text-anchor="middle" >Mapa Vectorial de Pines, Adaptación Lógica y Buses — &quot;Voces de Amarilis&quot;</text>
+<text x="900.0" y="68.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.0" font-weight="500" fill="#475569" text-anchor="middle" >Distribución pin a pin verificada en firmware_maestro_nano.ino, firmware_esclavo_esp32c3.ino y netlist SPICE</text>
+<path d="M 40.0 86.0 L 1760.0 86.0" fill="none" stroke="#E2E8F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="40.0" y="120.0" width="360.0" height="290.0" rx="10.0" ry="10.0" fill="#FEFCE8" stroke="#CA8A04" stroke-width="1.8" filter="url(#cardShadow)"/>
+<rect x="41.0" y="121.0" width="358.0" height="6" rx="4" ry="4" fill="#CA8A04"/>
+<text x="220.0" y="213.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0F172A" text-anchor="middle" >4× Sensores Táctiles TTP223</text>
+<text x="220.0" y="239.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#0F172A" text-anchor="middle" >Botón 1 (SIG) → D2 : Play/Pause (Stop)</text>
+<text x="220.0" y="263.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#0F172A" text-anchor="middle" >Botón 2 (SIG) → D3 : Siguiente Pista</text>
+<text x="220.0" y="287.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#0F172A" text-anchor="middle" >Botón 3 (SIG) → D4 : Pista Anterior</text>
+<text x="220.0" y="311.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#0F172A" text-anchor="middle" >Botón 4 (SIG) → D5 : Mute / Vol+ (≥800ms)</text>
+<text x="220.0" y="335.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#CA8A04" text-anchor="middle" >VCC → +5.00V_REG · Jumpers A/B abiertos</text>
+<rect x="40.0" y="444.0" width="360.0" height="290.0" rx="10.0" ry="10.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.8" filter="url(#cardShadow)"/>
+<rect x="41.0" y="445.0" width="358.0" height="6" rx="4" ry="4" fill="#2563EB"/>
+<text x="220.0" y="537.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0F172A" text-anchor="middle" >Módulo DFPlayer Mini (MP3)</text>
+<text x="220.0" y="563.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="middle" >Pin 1 VCC → +5.00V_REG · Pin 7/10 GND</text>
+<text x="220.0" y="587.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle" >Pin 2 RX ← R1 (1kΩ) ← Nano D11 TX</text>
+<text x="220.0" y="611.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle" >Pin 3 TX (3.3V) → Nano D10 RX directo</text>
+<text x="220.0" y="635.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#059669" text-anchor="middle" >Pin 16 BUSY → Nano D12 (Sync 1.05 ms)</text>
+<text x="220.0" y="659.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0891B2" text-anchor="middle" >Pin 4/5 DAC_R/L → 2× 1µF → Pot → PAM8610</text>
+<rect x="40.0" y="766.0" width="360.0" height="180.0" rx="10.0" ry="10.0" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.8" filter="url(#cardShadow)"/>
+<rect x="41.0" y="767.0" width="358.0" height="6" rx="4" ry="4" fill="#DC2626"/>
+<text x="220.0" y="827.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle" >Etapa de Alimentación + Audio</text>
+<text x="220.0" y="853.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#DC2626" text-anchor="middle" >Fuente 12V 2A → KCD1 → 1000µF → LM2596</text>
+<text x="220.0" y="877.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#EA580C" text-anchor="middle" >LM2596 + 100nF → +5.00V_REG exactos</text>
+<text x="220.0" y="901.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#0891B2" text-anchor="middle" >PAM8610 (+12V_SW) → 2× Parlantes 8 Ω BTL</text>
+<rect x="490.0" y="120.0" width="330.0" height="620.0" rx="14.0" ry="14.0" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.2" filter="url(#cardShadow)"/>
+<rect x="490.0" y="120.0" width="330.0" height="52.0" rx="10.0" ry="10.0" fill="#1E3A8A" stroke="#2563EB" stroke-width="1.5" />
+<text x="655.0" y="145.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ARDUINO NANO V3 (MAESTRO)</text>
+<text x="655.0" y="163.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="500" fill="#DBEAFE" text-anchor="middle" >ATmega328P @ 16 MHz · Lógica 5.00 V</text>
+<rect x="508.0" y="196.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#CA8A04" stroke-width="1.4" />
+<text x="554.0" y="213.8" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#CA8A04" text-anchor="middle" >D2</text>
+<text x="612.0" y="214.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >TTP223 #1 (Play/Pause)</text>
+<rect x="508.0" y="246.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#CA8A04" stroke-width="1.4" />
+<text x="554.0" y="263.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#CA8A04" text-anchor="middle" >D3</text>
+<text x="612.0" y="264.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >TTP223 #2 (Siguiente)</text>
+<rect x="508.0" y="296.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#CA8A04" stroke-width="1.4" />
+<text x="554.0" y="313.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#CA8A04" text-anchor="middle" >D4</text>
+<text x="612.0" y="314.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >TTP223 #3 (Anterior)</text>
+<rect x="508.0" y="346.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#CA8A04" stroke-width="1.4" />
+<text x="554.0" y="363.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#CA8A04" text-anchor="middle" >D5</text>
+<text x="612.0" y="364.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >TTP223 #4 (Mute/Vol+)</text>
+<rect x="508.0" y="398.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#7C3AED" stroke-width="1.4" />
+<text x="554.0" y="415.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#7C3AED" text-anchor="middle" >D6 (TX)</text>
+<text x="612.0" y="416.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >Sync 115200 → Divisor 1k+2k</text>
+<rect x="508.0" y="500.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#059669" stroke-width="1.4" />
+<text x="554.0" y="517.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#059669" text-anchor="middle" >D7 (RX)</text>
+<text x="612.0" y="518.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >ACK ← ESP32 GPIO21 (3.3V)</text>
+<rect x="508.0" y="546.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#2563EB" stroke-width="1.4" />
+<text x="554.0" y="563.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#2563EB" text-anchor="middle" >D10 (RX)</text>
+<text x="612.0" y="564.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >SW UART ← DFPlayer TX</text>
+<rect x="508.0" y="592.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#2563EB" stroke-width="1.4" />
+<text x="554.0" y="609.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#2563EB" text-anchor="middle" >D11 (TX)</text>
+<text x="612.0" y="610.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >SW UART → R1(1k) → DFP RX</text>
+<rect x="508.0" y="638.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#059669" stroke-width="1.4" />
+<text x="554.0" y="655.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#059669" text-anchor="middle" >D12 (IN)</text>
+<text x="612.0" y="656.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >Hardware BUSY ← DFP Pin 16</text>
+<rect x="508.0" y="686.0" width="92.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#EA580C" stroke-width="1.4" />
+<text x="554.0" y="703.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#EA580C" text-anchor="middle" >+5V / GND</text>
+<text x="612.0" y="704.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >Desde LM2596 (VIN sin conectar)</text>
+<path d="M 400.0 210.0 L 484.0 210.0" fill="none" stroke="#CA8A04" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrTouch)"/>
+<path d="M 400.0 260.0 L 484.0 260.0" fill="none" stroke="#CA8A04" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrTouch)"/>
+<path d="M 400.0 310.0 L 484.0 310.0" fill="none" stroke="#CA8A04" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrTouch)"/>
+<path d="M 400.0 360.0 L 484.0 360.0" fill="none" stroke="#CA8A04" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrTouch)"/>
+<path d="M 400.0 560.0 L 484.0 560.0" fill="none" stroke="#2563EB" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrUART)"/>
+<path d="M 490.0 606.0 L 406.0 606.0" fill="none" stroke="#2563EB" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrUART)"/>
+<path d="M 400.0 652.0 L 484.0 652.0" fill="none" stroke="#059669" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrSafe)"/>
+<rect x="862.0" y="336.0" width="196.0" height="154.0" rx="10.0" ry="10.0" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.8" filter="url(#cardShadow)"/>
+<rect x="863.0" y="337.0" width="194.0" height="6" rx="4" ry="4" fill="#7C3AED"/>
+<text x="960.0" y="380.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#0F172A" text-anchor="middle" >Divisor Seguro 5V→3.33V</text>
+<text x="960.0" y="402.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#7C3AED" text-anchor="middle" >R2 = 1 kΩ (D6 → GPIO20)</text>
+<text x="960.0" y="422.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#7C3AED" text-anchor="middle" >R3+R4 = 2 kΩ (GPIO20 → GND)</text>
+<text x="960.0" y="442.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle" >V_out = 3.333 V (I=1.67 mA)</text>
+<text x="960.0" y="462.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle" >4/4 resistencias 1k usadas</text>
+<rect x="862.0" y="548.0" width="196.0" height="134.0" rx="10.0" ry="10.0" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.8" filter="url(#cardShadow)"/>
+<rect x="863.0" y="549.0" width="194.0" height="6" rx="4" ry="4" fill="#EA580C"/>
+<text x="960.0" y="592.5" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle" >Estabilizador +5V_ESP_SD</text>
+<text x="960.0" y="614.5" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#475569" text-anchor="middle" >Dupont (0.15 Ω, 0.35 µH)</text>
+<text x="960.0" y="634.5" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#EA580C" text-anchor="middle" >Cap. 100 µF + 100 nF local</text>
+<text x="960.0" y="654.5" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle" >Droop: 256.8 → 14.18 mV</text>
+<path d="M 820.0 412.0 L 856.0 412.0" fill="none" stroke="#7C3AED" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr3V3)"/>
+<path d="M 1058.0 412.0 L 1094.0 412.0" fill="none" stroke="#7C3AED" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr3V3)"/>
+<path d="M 1100.0 514.0 L 826.0 514.0" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrSafe)" stroke-dasharray="5,3"/>
+<rect x="884.6" y="505.0" width="150.8" height="18.0" rx="5.0" ry="5.0" fill="#FFFFFF" stroke="#059669" stroke-width="1.1" />
+<text x="960.0" y="517.4" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#059669" text-anchor="middle" >Retorno ACK 3.3V directo</text>
+<path d="M 820.0 700.0 L 856.0 700.0" fill="none" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr5V)"/>
+<path d="M 1058.0 700.0 L 1094.0 700.0" fill="none" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr5V)"/>
+<rect x="1100.0" y="120.0" width="330.0" height="620.0" rx="14.0" ry="14.0" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2.2" filter="url(#cardShadow)"/>
+<rect x="1100.0" y="120.0" width="330.0" height="52.0" rx="10.0" ry="10.0" fill="#5B21B6" stroke="#7C3AED" stroke-width="1.5" />
+<text x="1265.0" y="145.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ESP32-C3 SUPERMINI (ESCLAVO)</text>
+<text x="1265.0" y="163.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="500" fill="#EDE9FE" text-anchor="middle" >RISC-V 32 bits @ 160 MHz · IO 3.3 V</text>
+<rect x="1116.0" y="196.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#0D9488" stroke-width="1.4" />
+<text x="1170.0" y="213.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#0D9488" text-anchor="middle" >GPIO4 (SCK)</text>
+<text x="1234.0" y="214.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >MicroSD SPI Clock (20 MHz)</text>
+<rect x="1116.0" y="246.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#0D9488" stroke-width="1.4" />
+<text x="1170.0" y="263.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#0D9488" text-anchor="middle" >GPIO5 (MISO)</text>
+<text x="1234.0" y="264.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >MicroSD SPI MISO (Lectura)</text>
+<rect x="1116.0" y="296.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#0D9488" stroke-width="1.4" />
+<text x="1170.0" y="313.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#0D9488" text-anchor="middle" >GPIO6 (MOSI)</text>
+<text x="1234.0" y="314.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >MicroSD SPI MOSI (Comandos)</text>
+<rect x="1116.0" y="346.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#0D9488" stroke-width="1.4" />
+<text x="1170.0" y="363.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#0D9488" text-anchor="middle" >GPIO7 (CS)</text>
+<text x="1234.0" y="364.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >MicroSD Chip Select</text>
+<rect x="1116.0" y="398.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#7C3AED" stroke-width="1.4" />
+<text x="1170.0" y="415.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#7C3AED" text-anchor="middle" >GPIO20 (RX)</text>
+<text x="1234.0" y="416.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >UART0 RX ← Divisor (3.333V)</text>
+<rect x="1116.0" y="500.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#059669" stroke-width="1.4" />
+<text x="1170.0" y="517.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#059669" text-anchor="middle" >GPIO21 (TX)</text>
+<text x="1234.0" y="518.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >UART0 TX → Nano D7 (ACK)</text>
+<rect x="1116.0" y="546.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#7C3AED" stroke-width="1.4" />
+<text x="1170.0" y="563.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#7C3AED" text-anchor="middle" >GPIO8 (SDA)</text>
+<text x="1234.0" y="564.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >OLED SSD1306 SDA (800 kHz)</text>
+<rect x="1116.0" y="592.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#7C3AED" stroke-width="1.4" />
+<text x="1170.0" y="609.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#7C3AED" text-anchor="middle" >GPIO9 (SCL)</text>
+<text x="1234.0" y="610.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >OLED SSD1306 SCL (800 kHz)</text>
+<rect x="1116.0" y="638.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#DC2626" stroke-width="1.4" />
+<text x="1170.0" y="655.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#DC2626" text-anchor="middle" >3V3 (OUT)</text>
+<text x="1234.0" y="656.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >Alimenta VCC OLED (No 5V!)</text>
+<rect x="1116.0" y="686.0" width="108.0" height="28.0" rx="14.0" ry="14.0" fill="#F8FAFC" stroke="#EA580C" stroke-width="1.4" />
+<text x="1170.0" y="703.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#EA580C" text-anchor="middle" >5V / GND</text>
+<text x="1234.0" y="704.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.2" font-weight="600" fill="#0F172A" text-anchor="start" >Desde +5V_ESP_SD (100 µF)</text>
+<rect x="1480.0" y="146.0" width="280.0" height="260.0" rx="10.0" ry="10.0" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.8" filter="url(#cardShadow)"/>
+<rect x="1481.0" y="147.0" width="278.0" height="6" rx="4" ry="4" fill="#0D9488"/>
+<text x="1620.0" y="223.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle" >Módulo Lector MicroSD SPI</text>
+<text x="1620.0" y="249.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#0F172A" text-anchor="middle" >Tarjeta MicroSD #2 (8 GB FAT32)</text>
+<text x="1620.0" y="273.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0D9488" text-anchor="middle" >Archivos /vid_01.bin .. .bin</text>
+<text x="1620.0" y="297.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0D9488" text-anchor="middle" >SPI @ 20 MHz → 1.05 ms/frame</text>
+<text x="1620.0" y="321.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#EA580C" text-anchor="middle" >VCC → +5.00V_REG OBLIGATORIO</text>
+<text x="1620.0" y="345.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#475569" text-anchor="middle" >(Posee LDO AMS1117-3.3 interno)</text>
+<rect x="1480.0" y="480.0" width="280.0" height="250.0" rx="10.0" ry="10.0" fill="#FAF5FF" stroke="#7C3AED" stroke-width="1.8" filter="url(#cardShadow)"/>
+<rect x="1481.0" y="481.0" width="278.0" height="6" rx="4" ry="4" fill="#7C3AED"/>
+<text x="1620.0" y="552.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle" >Pantalla OLED 0.96&quot; SSD1306</text>
+<text x="1620.0" y="578.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#0F172A" text-anchor="middle" >128×64 px · Dir. I2C 0x3C</text>
+<text x="1620.0" y="602.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#7C3AED" text-anchor="middle" >Pinout: VCC | GND | SCL | SDA</text>
+<text x="1620.0" y="626.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#7C3AED" text-anchor="middle" >Bus I2C @ 800 kHz → 11.54 ms/fr</text>
+<text x="1620.0" y="650.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#DC2626" text-anchor="middle" >VCC → 3V3 del ESP32-C3 (3.30V)</text>
+<text x="1620.0" y="674.9" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#475569" text-anchor="middle" >(Evita pull-ups de 5V en GPIO8/9)</text>
+<path d="M 1430.0 210.0 L 1474.0 210.0" fill="none" stroke="#0D9488" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrSPI)"/>
+<path d="M 1430.0 260.0 L 1474.0 260.0" fill="none" stroke="#0D9488" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrSPI)"/>
+<path d="M 1430.0 310.0 L 1474.0 310.0" fill="none" stroke="#0D9488" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrSPI)"/>
+<path d="M 1430.0 360.0 L 1474.0 360.0" fill="none" stroke="#0D9488" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrSPI)"/>
+<path d="M 1430.0 560.0 L 1474.0 560.0" fill="none" stroke="#7C3AED" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr3V3)"/>
+<path d="M 1430.0 606.0 L 1474.0 606.0" fill="none" stroke="#7C3AED" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr3V3)"/>
+<path d="M 1430.0 652.0 L 1474.0 652.0" fill="none" stroke="#7C3AED" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr3V3)"/>
+<rect x="490.0" y="766.0" width="1270.0" height="180.0" rx="12.0" ry="12.0" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" />
+<text x="520.0" y="796.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#0F172A" text-anchor="start" >CHECKLIST DE CONEXIÓN SEGURA Y BALANCE DE RESISTENCIAS (4/4 DE 1 kΩ)</text>
+<text x="520.0" y="824.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#475569" text-anchor="start" >1. Arduino Nano VIN sin conectar: alimentar únicamente por pin +5V con LM2596 pre-calibrado a 5.00 V exactos.</text>
+<text x="520.0" y="850.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#475569" text-anchor="start" >2. Balance de resistencias 1kΩ (4/4): R1 en UART D11→DFPlayer RX; R2, R3 y R4 formando divisor 1k+2k en D6→GPIO20.</text>
+<text x="520.0" y="876.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#475569" text-anchor="start" >3. Rieles diferenciados: OLED VCC → pin 3V3 del ESP32-C3 (evita 5V en I2C) | MicroSD SPI VCC → +5.00V_REG (por AMS1117-3.3).</text>
+<text x="520.0" y="902.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#475569" text-anchor="start" >4. Estabilizador local: Capacitor 100 µF + 100 nF en Protoboard #2 junto a ESP32-C3/MicroSD (caída SPI 20 MHz ≤ 14.18 mV).</text>
+<text x="520.0" y="928.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#475569" text-anchor="start" >5. Audio y potencia: 2× Cap 1 µF con (+) hacia DAC_L/R si son electrolíticos | Parlantes 8 Ω BTL flotantes (prohibido unir OUT- a GND).</text>
+</svg>
