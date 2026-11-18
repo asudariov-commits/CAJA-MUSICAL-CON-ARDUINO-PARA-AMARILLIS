@@ -12,12 +12,12 @@
 
   // Zone camera presets (spherical angles + lookAt target)
   const ZONE_PRESETS = {
-    all: { target: [-0.2, 0.25, 0.2], theta: 0.16, phi: 0.80, radius: 40.5 },
-    z1:  { target: [-8.8, 0.4, -4.6], theta: 0.36, phi: 0.72, radius: 14.5 },
-    z2:  { target: [-9.2, 0.4, 4.2],  theta: 0.32, phi: 0.75, radius: 14.5 },
-    z3:  { target: [-1.4, 0.35, 0.0], theta: 0.14, phi: 0.74, radius: 18.0 },
-    z4:  { target: [5.0, 0.35, 0.0],  theta: -0.14, phi: 0.74, radius: 18.0 },
-    z5:  { target: [10.6, 0.55, 0.8], theta: -0.26, phi: 0.78, radius: 18.2 }
+    all: { target: [-0.2, 0.25, 0.2], theta: 0.14, phi: 0.78, radius: 31.0 },
+    z1:  { target: [-8.8, 0.4, -4.6], theta: 0.36, phi: 0.72, radius: 13.8 },
+    z2:  { target: [-9.2, 0.4, 4.2],  theta: 0.32, phi: 0.75, radius: 13.8 },
+    z3:  { target: [-1.4, 0.35, 0.0], theta: 0.14, phi: 0.74, radius: 16.5 },
+    z4:  { target: [5.0, 0.35, 0.0],  theta: -0.14, phi: 0.74, radius: 16.5 },
+    z5:  { target: [10.6, 0.55, 0.8], theta: -0.26, phi: 0.78, radius: 16.8 }
   };
 
   const ZONE_PRIMARY_NODE = {
@@ -62,36 +62,36 @@
 
   // Callouts: compact overview set (activeZone === "all") + detailed zone sets
   const CALLOUT_DEFS = [
-    // Overview (6 well-spaced cards)
+    // Overview (6 outer-perimeter cards: 3 top, 3 bottom — zero PCB occlusion)
     {
       id: "ov_z1", mode: "all", zone: "z1", node: "lm2596", assembly: "kcd1",
       icon: "⚡", title: "Z1 · KCD1 + LM2596", sub: "12V 2A → 5.00V · Clic KCD1",
-      anchor: [-8.5, 0.9, -4.8], offset: [-26, -64]
-    },
-    {
-      id: "ov_z2", mode: "all", zone: "z2", node: "pam8610", assembly: "pam8610",
-      icon: "🔊", title: "Z2 · PAM8610 + 2×8Ω", sub: "BTL 6.24W/ch · Pot 10kΩ",
-      anchor: [-9.6, 0.8, 4.0], offset: [-24, -48]
+      anchor: [-8.8, 0.9, -5.4], offset: [-42, -108]
     },
     {
       id: "ov_nano", mode: "all", zone: "z3", node: "nano", assembly: "nano",
       icon: "▣", title: "Z3 · Arduino Nano V3", sub: "Maestro 5V · D2..D12",
-      anchor: [-1.4, 0.7, -5.8], offset: [-8, -68]
-    },
-    {
-      id: "ov_dfp", mode: "all", zone: "z3", node: "dfplayer", assembly: "dfplayer",
-      icon: "♪", title: "Z3 · DFPlayer + 2×1µF", sub: "MP3 + BUSY D12 + R1 1kΩ",
-      anchor: [-1.4, 0.7, 5.4], offset: [58, -42]
-    },
-    {
-      id: "ov_esp", mode: "all", zone: "z4", node: "esp32", assembly: "esp32",
-      icon: "◈", title: "Z4 · ESP32-C3 + 100µF", sub: "Div 1k+2k · MicroSD 20MHz",
-      anchor: [5.0, 0.7, -3.5], offset: [16, -72]
+      anchor: [-1.4, 0.7, -5.8], offset: [0, -112]
     },
     {
       id: "ov_oled", mode: "all", zone: "z5", node: "oled", assembly: "oled",
       icon: "▤", title: "Z5 · OLED + 4× TTP223", sub: "I2C 800kHz · Clic T1..T4",
-      anchor: [11.1, 1.4, -3.6], offset: [-20, -64]
+      anchor: [11.1, 1.4, -4.6], offset: [-26, -104]
+    },
+    {
+      id: "ov_z2", mode: "all", zone: "z2", node: "pam8610", assembly: "pam8610",
+      icon: "🔊", title: "Z2 · PAM8610 + 2×8Ω", sub: "BTL 6.24W/ch · Pot 10kΩ",
+      anchor: [-9.6, 0.8, 5.2], offset: [-24, 92]
+    },
+    {
+      id: "ov_dfp", mode: "all", zone: "z3", node: "dfplayer", assembly: "dfplayer",
+      icon: "♪", title: "Z3 · DFPlayer + 2×1µF", sub: "MP3 + BUSY D12 + R1 1kΩ",
+      anchor: [-1.4, 0.7, 5.4], offset: [0, 96]
+    },
+    {
+      id: "ov_esp", mode: "all", zone: "z4", node: "esp32", assembly: "esp32",
+      icon: "◈", title: "Z4 · ESP32-C3 + 100µF", sub: "Div 1k+2k · MicroSD 20MHz",
+      anchor: [5.0, 0.7, 5.2], offset: [14, 96]
     },
 
     // Zone 1 Detail
@@ -1568,14 +1568,32 @@
     camera.lookAt(camCtrl.lookAt);
   }
 
+  function isFloatingInspectorVisible() {
+    if (window.innerWidth <= 1120) return false;
+    if (document.body.classList.contains("inspector-collapsed")) return false;
+    if (stageWrap && stageWrap.classList.contains("is-fullscreen")) return false;
+    const inspEl = document.getElementById("floatingInspector");
+    return Boolean(inspEl && inspEl.offsetWidth > 0);
+  }
+
+  function getAdjustedTargetX(baseX, zoneId) {
+    if (!isFloatingInspectorVisible()) return baseX;
+    return baseX + (zoneId === "all" ? 3.3 : 1.9);
+  }
+
+  function getAdjustedRadius(baseRadius, zoneId) {
+    if (zoneId === "all" && isFloatingInspectorVisible()) return 36.8;
+    return baseRadius;
+  }
+
   function applyZonePreset(zoneId) {
     const p = ZONE_PRESETS[zoneId] || ZONE_PRESETS.all;
     state.activeZone = zoneId;
     const isNarrow = stageWrap && stageWrap.clientWidth < 540;
     camCtrl.goalTheta = p.theta;
     camCtrl.goalPhi = p.phi;
-    camCtrl.goalRadius = zoneId === "all" && isNarrow ? 50.0 : p.radius;
-    camCtrl.goalLookAt.set(p.target[0], p.target[1], p.target[2]);
+    camCtrl.goalRadius = zoneId === "all" && isNarrow ? 48.0 : getAdjustedRadius(p.radius, zoneId);
+    camCtrl.goalLookAt.set(getAdjustedTargetX(p.target[0], zoneId), p.target[1], p.target[2]);
 
     document.querySelectorAll("#zoneChips .zone-chip").forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.zone === zoneId);
@@ -1600,7 +1618,7 @@
     const tgt = ASSEMBLY_TARGETS[assemblyId];
     if (!tgt) return;
     state.activeZone = tgt.zone;
-    camCtrl.goalLookAt.set(tgt.pos[0], tgt.pos[1], tgt.pos[2]);
+    camCtrl.goalLookAt.set(getAdjustedTargetX(tgt.pos[0], tgt.zone), tgt.pos[1], tgt.pos[2]);
     camCtrl.goalRadius = tgt.radius;
     camCtrl.goalPhi = 0.74;
     camCtrl.goalTheta = ZONE_PRESETS[tgt.zone].theta;
@@ -1704,8 +1722,22 @@
       };
     }
 
+    let inspBox = null;
+    if (isFloatingInspectorVisible()) {
+      const inspEl = document.getElementById("floatingInspector");
+      const stRect = stageWrap.getBoundingClientRect();
+      const inRect = inspEl.getBoundingClientRect();
+      inspBox = {
+        left: inRect.left - stRect.left - 10,
+        top: inRect.top - stRect.top - 8,
+        right: inRect.right - stRect.left + 8,
+        bottom: inRect.bottom - stRect.top + 8
+      };
+    }
+
     function clampItem(it) {
-      it.cx = Math.max(8, Math.min(W - it.cw - 8, it.cx));
+      const maxX = inspBox ? Math.min(W - it.cw - 8, inspBox.left - it.cw) : W - it.cw - 8;
+      it.cx = Math.max(8, Math.min(Math.max(8, maxX), it.cx));
       it.cy = Math.max(topSafe, Math.min(botSafe - it.ch, it.cy));
       // Avoid bottom-left minimap box
       if (it.cx < mmRight && it.cy + it.ch > mmTop) {
@@ -1715,15 +1747,15 @@
       // Avoid open 2D schematic overlay card
       if (ovBox && it.cx < ovBox.right && it.cx + it.cw > ovBox.left && it.cy < ovBox.bottom && it.cy + it.ch > ovBox.top) {
         if (ovBox.left < W / 2) {
-          if (ovBox.right + it.cw + 8 <= W) it.cx = ovBox.right;
+          if (ovBox.right + it.cw + 8 <= (inspBox ? inspBox.left : W)) it.cx = ovBox.right;
           else it.cy = Math.min(botSafe - it.ch, ovBox.bottom);
         } else {
           if (ovBox.left - it.cw >= 8) it.cx = ovBox.left - it.cw;
           else it.cy = Math.min(botSafe - it.ch, ovBox.bottom);
         }
       }
-      // Avoid bottom-center viewbar
-      const vbHalf = isMobile ? 130 : 162;
+      // Avoid bottom-center viewbar (centered in stage)
+      const vbHalf = isMobile ? 138 : 185;
       if (it.cx + it.cw > W / 2 - vbHalf && it.cx < W / 2 + vbHalf && it.cy + it.ch > H - 48) {
         it.cy = H - 52 - it.ch;
       }
@@ -1979,6 +2011,72 @@
         window.AmarilisBridge.openFritzingLightbox();
       }
     });
+
+    // Floating Inspector Drawer Toggle
+    const btnTogInsp = document.getElementById("btnToggleInspector");
+    const btnCloseInsp = document.getElementById("btnCloseInspector");
+    const inspGlyph = document.getElementById("inspectorToggleGlyph");
+
+    function setInspectorOpen(open) {
+      document.body.classList.toggle("inspector-collapsed", !open);
+      if (btnTogInsp) btnTogInsp.setAttribute("aria-expanded", String(open));
+      if (inspGlyph) inspGlyph.textContent = open ? "▸" : "◂";
+      const preset = ZONE_PRESETS[state.activeZone] || ZONE_PRESETS.all;
+      camCtrl.goalLookAt.x = getAdjustedTargetX(preset.target[0], state.activeZone);
+      camCtrl.goalRadius = getAdjustedRadius(preset.radius, state.activeZone);
+      setTimeout(updateCalloutsAndMinimap, 80);
+    }
+
+    btnTogInsp?.addEventListener("click", () => {
+      const currentlyOpen = !document.body.classList.contains("inspector-collapsed");
+      setInspectorOpen(!currentlyOpen);
+    });
+    btnCloseInsp?.addEventListener("click", () => setInspectorOpen(false));
+
+    // Fullscreen 3D Toggle (Native Fullscreen API + CSS Fallback)
+    const btnFs = document.getElementById("btnFullscreen3d");
+    function syncFullscreenState(isFs) {
+      stageWrap.classList.toggle("is-fullscreen", isFs);
+      if (btnFs) {
+        btnFs.classList.toggle("active", isFs);
+        btnFs.setAttribute("aria-pressed", String(isFs));
+      }
+      const preset = ZONE_PRESETS[state.activeZone] || ZONE_PRESETS.all;
+      camCtrl.goalLookAt.x = getAdjustedTargetX(preset.target[0], state.activeZone);
+      camCtrl.goalRadius = getAdjustedRadius(preset.radius, state.activeZone);
+      setTimeout(() => {
+        resizeRenderer();
+        updateCalloutsAndMinimap();
+      }, 60);
+    }
+
+    btnFs?.addEventListener("click", () => {
+      const cssFs = stageWrap.classList.contains("is-fullscreen");
+      if (document.fullscreenElement === stageWrap) {
+        document.exitFullscreen().catch(() => syncFullscreenState(false));
+      } else if (cssFs) {
+        syncFullscreenState(false);
+      } else if (stageWrap.requestFullscreen) {
+        stageWrap.requestFullscreen().catch(() => syncFullscreenState(true));
+      } else {
+        syncFullscreenState(true);
+      }
+    });
+
+    document.addEventListener("fullscreenchange", () => {
+      syncFullscreenState(document.fullscreenElement === stageWrap);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && stageWrap.classList.contains("is-fullscreen") && !document.fullscreenElement) {
+        syncFullscreenState(false);
+      }
+    });
+
+    // Resize canvas cleanly after sidebar collapse transition
+    document.getElementById("sidebarCollapseBtn")?.addEventListener("click", () => {
+      setTimeout(resizeRenderer, 240);
+    });
   }
 
   function setFlowEnabled(enabled, notifySidebar = false) {
@@ -2104,8 +2202,15 @@
       const w = stageWrap.clientWidth || 700;
       const h = stageWrap.clientHeight || 468;
       if (w < 540) {
-        camCtrl.radius = 50.0;
-        camCtrl.goalRadius = 50.0;
+        camCtrl.radius = 48.0;
+        camCtrl.goalRadius = 48.0;
+      } else {
+        const initX = getAdjustedTargetX(ZONE_PRESETS.all.target[0], "all");
+        const initR = getAdjustedRadius(ZONE_PRESETS.all.radius, "all");
+        camCtrl.lookAt.x = initX;
+        camCtrl.goalLookAt.x = initX;
+        camCtrl.radius = initR;
+        camCtrl.goalRadius = initR;
       }
       camera = new THREE.PerspectiveCamera(34, w / h, 0.2, 140);
       updateCameraFromSpherical();

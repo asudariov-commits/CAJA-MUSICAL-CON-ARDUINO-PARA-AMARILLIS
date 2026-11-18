@@ -49,7 +49,7 @@
 
   /* Layout */
   --sidebar-w: 214px;
-  --header-h: 64px;
+  --header-h: 56px;
   --font-sans: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-cond: "Barlow Semi Condensed", "Barlow", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Consolas", "Courier New", monospace;
@@ -462,10 +462,10 @@ body.sidebar-collapsed .sidebar-toggle {
 
 .content-container {
   width: 100%;
-  max-width: 1320px;
+  max-width: none;
   min-width: 0;
   margin: 0 auto;
-  padding: 18px 24px 56px;
+  padding: 10px 14px 56px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -475,7 +475,7 @@ body.sidebar-collapsed .sidebar-toggle {
   scroll-margin-top: calc(var(--header-h) + 18px);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -483,7 +483,16 @@ body.sidebar-collapsed .sidebar-toggle {
 
 .wb-section > * {
   min-width: 0;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wb-section > .workbench-hero-stage {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .section-header {
@@ -663,21 +672,24 @@ h4 {
 }
 
 /* ==========================================================================
-   Section 1: Interactive 3D WebGL Workbench + Info Card + Live OLED Box
+   Section 1: Near-Fullscreen 3D WebGL Workbench + Floating Inspector + OLED Box
    ========================================================================== */
 
-.workbench-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.72fr) minmax(320px, 1fr);
-  gap: 18px;
-  align-items: stretch;
+.workbench-hero-stage {
+  position: relative;
+  width: 100%;
+  display: block;
 }
 
 .schematic-card {
-  padding: 14px 16px;
+  padding: 10px 12px 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+}
+
+.workbench-toolbar {
+  padding: 0 4px;
 }
 
 .toolbar-row {
@@ -690,7 +702,7 @@ h4 {
 
 .toolbar-title {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 700;
   color: var(--navy);
   text-transform: uppercase;
@@ -718,18 +730,31 @@ h4 {
   border-radius: 2px;
 }
 
-/* 3D WebGL Interactive Stage */
+/* 3D WebGL Interactive Stage — Near-Fullscreen on Desktop */
 .stage-3d-wrap {
   position: relative;
   width: 100%;
-  height: 440px;
-  min-height: 410px;
+  height: calc(100vh - var(--header-h) - 64px);
+  min-height: 580px;
+  max-height: 920px;
   background: var(--bg);
   border: 1.5px solid var(--line);
   border-radius: var(--radius-sm);
   overflow: hidden;
   user-select: none;
   touch-action: none;
+}
+
+.stage-3d-wrap.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: none;
+  z-index: 200;
+  border-radius: 0;
+  border: none;
 }
 
 #workbench3d {
@@ -968,15 +993,49 @@ h4 {
   box-shadow: none;
 }
 
+.stage-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.inspector-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--navy-2);
+  background: rgba(249, 242, 229, 0.94);
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px -6px rgba(24, 33, 61, 0.25);
+  transition: all 0.14s ease;
+}
+
+.inspector-toggle-btn:hover {
+  border-color: var(--teal);
+  color: var(--teal-deep);
+}
+
+.inspector-toggle-btn[aria-expanded="true"] {
+  background: var(--navy);
+  color: #f6eddd;
+}
+
 /* Floating 2D Schematic Overlay (toggled by viewbar button) */
 .schematic-overlay-card {
   position: absolute;
-  top: 48px;
-  right: 10px;
-  width: 196px;
+  top: 52px;
+  right: 356px;
+  width: 210px;
   max-width: calc(100% - 20px);
   z-index: 15;
-  background: rgba(249, 242, 229, 0.94);
+  background: rgba(249, 242, 229, 0.95);
   backdrop-filter: blur(6px);
   border: 1.5px solid var(--navy-2);
   border-radius: var(--radius-sm);
@@ -987,9 +1046,14 @@ h4 {
   gap: 5px;
 }
 
+body.inspector-collapsed .schematic-overlay-card,
+.stage-3d-wrap.is-fullscreen .schematic-overlay-card {
+  right: 12px;
+}
+
 .schematic-overlay-card.left-side {
-  right: auto;
-  left: 10px;
+  right: auto !important;
+  left: 12px;
 }
 
 .schematic-overlay-card[hidden] {
@@ -1167,25 +1231,76 @@ h4 {
   100% { transform: scale(1.75); opacity: 0; }
 }
 
-/* Info Card (Right Column) */
+/* Info Card (Floating Right Drawer on Desktop, Stacked Below on <= 1024px) */
 .info-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 14px;
+  gap: 12px;
+}
+
+.info-card.floating-inspector {
+  position: absolute;
+  top: 86px;
+  right: 16px;
+  width: 300px;
+  max-height: calc(100% - 104px);
+  overflow-y: auto;
+  z-index: 16;
+  padding: 14px 15px;
+  background: rgba(250, 244, 233, 0.93);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 16px 38px -14px rgba(24, 33, 61, 0.42), inset 0 1px rgba(255, 255, 255, 0.85);
+  transition: transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease, visibility 0.2s ease;
+}
+
+body.inspector-collapsed .info-card.floating-inspector {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(24px);
+}
+
+.info-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.inspector-close-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  border: 1px solid var(--line);
+  background: var(--bg-deep);
+  color: var(--navy);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.14s ease;
+}
+
+.inspector-close-btn:hover {
+  border-color: var(--high);
+  color: var(--high);
 }
 
 .info-card-head {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding-bottom: 12px;
+  gap: 10px;
+  padding-bottom: 10px;
   border-bottom: 1.5px solid var(--line-soft);
 }
 
 .info-thumb {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-sm);
   border: 1.5px solid var(--line);
   background: #fff;
@@ -1200,14 +1315,14 @@ h4 {
 
 .info-node-kicker {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: 0.66rem;
   font-weight: 700;
   color: var(--teal-deep);
   text-transform: uppercase;
 }
 
 .info-node-title {
-  font-size: 1.2rem;
+  font-size: 1.08rem;
   font-weight: 700;
   color: var(--navy);
 }
@@ -1244,6 +1359,20 @@ h4 {
   background: var(--card);
   color: var(--navy);
   box-shadow: 0 2px 6px rgba(24, 33, 61, 0.12);
+}
+
+.info-card.floating-inspector .tab-bar {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+}
+
+.info-card.floating-inspector .tab-btn {
+  flex: 1 1 auto;
+  font-size: 0.62rem;
+  padding: 6px 4px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .info-body {
@@ -2289,10 +2418,38 @@ h4 {
    ========================================================================== */
 
 @media (max-width: 1120px) {
-  .workbench-grid,
   .sim-layout,
   .results-split {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .workbench-hero-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .stage-3d-wrap {
+    height: 68vh;
+    min-height: 460px;
+  }
+
+  .info-card.floating-inspector {
+    position: static;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    background: var(--card);
+    backdrop-filter: none;
+    box-shadow: var(--shadow-paper);
+  }
+
+  body.inspector-collapsed .info-card.floating-inspector {
+    display: none;
+  }
+
+  .schematic-overlay-card {
+    right: 12px;
   }
 
   .spice-sim-grid,
@@ -2456,8 +2613,24 @@ h4 {
   }
 
   .stage-3d-wrap {
-    height: 390px;
-    min-height: 360px;
+    height: 62vh;
+    min-height: 390px;
+  }
+
+  .inspector-toggle-btn {
+    display: none;
+  }
+
+  .inspector-close-btn {
+    display: none;
+  }
+
+  body.inspector-collapsed .info-card.floating-inspector {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
   }
 
   .stage-top-hud {

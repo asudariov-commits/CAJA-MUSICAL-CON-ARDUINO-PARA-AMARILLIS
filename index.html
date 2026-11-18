@@ -16,7 +16,7 @@
   />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="sidebar-collapsed">
   <!-- Decorative Background PCB Traces -->
   <svg class="pcb-bg-layer" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
     <g stroke="#d3bea3" stroke-width="1.5" fill="none">
@@ -122,52 +122,16 @@
 
       <main class="content-container">
         <!-- ================================================================
-             SECTION 1: HERO & INTERACTIVE DUAL-MCU WORKBENCH (#inicio)
+             SECTION 1: HERO 3D WORKBENCH (FULLSCREEN-STYLE) + DETAILS (#inicio)
              ================================================================ -->
         <section id="inicio" class="wb-section">
-          <div>
-            <span class="eyebrow">Arquitectura Maestro-Esclavo Heterogénea (AVR 5V + RISC-V 3.3V)</span>
-            <h1 class="hero-title">Mesa Interactiva: Caja Cultural "Voces de Amarilis"</h1>
-            <p class="lead-copy">
-              Sistema embebido multimedia desacoplado en dos microcontroladores: el <strong>Arduino Nano V3</strong>
-              (ATmega328P @ 5 V) gobierna los 4 sensores capacitivos <strong>TTP223</strong>, el audio MP3 por
-              <strong>DFPlayer Mini</strong> y la sincronización por hardware <code>BUSY → D12</code>, mientras el
-              <strong>ESP32-C3 SuperMini</strong> (RISC-V @ 160 MHz) decodifica video <code>128×64</code> desde
-              <strong>MicroSD SPI (20 MHz)</strong> hacia la pantalla <strong>OLED SSD1306 I2C (800 kHz)</strong>.
-            </p>
-          </div>
-
-          <!-- 4 KPI Pills -->
-          <div class="kpi-grid">
-            <div class="kpi-pill">
-              <span class="kpi-label">Pipeline Video 128×64</span>
-              <span class="kpi-value">77.3 FPS máx / 30 FPS estables</span>
-              <span class="kpi-sub">12.94 ms/cuadro · 38.8% ocupación bus</span>
-            </div>
-            <div class="kpi-pill">
-              <span class="kpi-label">Sincronía Audio-Video</span>
-              <span class="kpi-value">1.05 ms Sync BUSY</span>
-              <span class="kpi-sub">Flanco D12 + UART 115200 bps (D6→GPIO20)</span>
-            </div>
-            <div class="kpi-pill">
-              <span class="kpi-label">Etapa Potencia PAM8610 BTL</span>
-              <span class="kpi-value">1.392 A @ 8Ω PASS</span>
-              <span class="kpi-sub">6.244 W/ch · margen seguro &lt; 2.00 A</span>
-            </div>
-            <div class="kpi-pill">
-              <span class="kpi-label">Presupuesto Auditado</span>
-              <span class="kpi-value">S/ 235.50 BOM 23 ítems</span>
-              <span class="kpi-sub">Base S/ 192.50 + Video S/ 43.00</span>
-            </div>
-          </div>
-
-          <!-- Interactive 3D WebGL Workbench Stage + Synchronized Info Card -->
-          <div class="workbench-grid">
+          <!-- Nearly Full-Viewport Interactive 3D WebGL Stage + Floating Inspector -->
+          <div class="workbench-hero-stage" id="workbenchHeroStage">
             <article class="paper-card schematic-card">
               <span class="pcb-pad tl"></span><span class="pcb-pad tr"></span>
               <span class="pcb-pad bl"></span><span class="pcb-pad br"></span>
 
-              <div class="toolbar-row">
+              <div class="toolbar-row workbench-toolbar">
                 <span class="toolbar-title">Workbench 3D Interactivo (5 Zonas · 15 Módulos) — Arrastra · Clic en KCD1 / TTP223 / Pot</span>
                 <div class="legend-strip">
                   <span class="legend-item"><span class="legend-swatch" style="background:#d93829;"></span>+12V_SW</span>
@@ -188,7 +152,7 @@
                 <!-- Floating Callout Cards Layer -->
                 <div id="calloutCardsLayer" class="callout-cards-layer"></div>
 
-                <!-- Top-Left Zone Chips & KCD1 Power Indicator -->
+                <!-- Top Zone Chips, KCD1 Power Indicator & Inspector Toggle -->
                 <div class="stage-top-hud">
                   <div class="zone-chips" id="zoneChips" role="toolbar" aria-label="Zonas del circuito">
                     <button class="zone-chip active" type="button" data-zone="all">Todo</button>
@@ -198,13 +162,19 @@
                     <button class="zone-chip" type="button" data-zone="z4">Z4 ESP32</button>
                     <button class="zone-chip" type="button" data-zone="z5">Z5 OLED/Táctil</button>
                   </div>
-                  <button class="power-pill-3d on" id="btnPower3d" type="button" title="Alternar Interruptor Maestro KCD1 (12V)">
-                    <span class="power-led-dot"></span>
-                    <span id="powerPillText">KCD1: ON · 12V</span>
-                  </button>
+                  <div class="stage-hud-right">
+                    <button class="power-pill-3d on" id="btnPower3d" type="button" title="Alternar Interruptor Maestro KCD1 (12V)">
+                      <span class="power-led-dot"></span>
+                      <span id="powerPillText">KCD1: ON · 12V</span>
+                    </button>
+                    <button class="inspector-toggle-btn" id="btnToggleInspector" type="button" aria-expanded="true" title="Mostrar u ocultar panel inspector">
+                      <span>Inspector</span>
+                      <span id="inspectorToggleGlyph">▸</span>
+                    </button>
+                  </div>
                 </div>
 
-                <!-- Top-Right Translucent Floating 2D Schematic Overlay (toggled by viewbar button) -->
+                <!-- Floating 2D Schematic Overlay (toggled by viewbar button) -->
                 <div class="schematic-overlay-card" id="schematicOverlayCard" hidden>
                   <div class="sch-ov-head">
                     <span>Mapa Conexión Real (Fritzing)</span>
@@ -262,6 +232,8 @@
                   <button class="vb-btn active" id="btnToggleFlow3d" type="button" aria-pressed="true" title="Flujo de corriente 3D (⚡)">⚡</button>
                   <button class="vb-btn active" id="btnToggleLabels3d" type="button" aria-pressed="true" title="Etiquetas flotantes (🏷)">🏷</button>
                   <button class="vb-btn" id="btnToggleSchematic3d" type="button" aria-pressed="false" title="Superposición esquemático 2D (⊞)">⊞</button>
+                  <span class="vb-sep" aria-hidden="true"></span>
+                  <button class="vb-btn" id="btnFullscreen3d" type="button" aria-pressed="false" title="Pantalla completa 3D (⛶)">⛶</button>
                 </div>
 
                 <!-- Clean WebGL Fallback (only shown if WebGL fails) -->
@@ -275,8 +247,8 @@
               </div>
             </article>
 
-            <!-- Right-Side Synchronized Info Card -->
-            <aside class="paper-card info-card" aria-live="polite">
+            <!-- Right-Side Floating Synchronized Info Card -->
+            <aside class="paper-card info-card floating-inspector" id="floatingInspector" aria-live="polite">
               <span class="pcb-pad tl"></span><span class="pcb-pad tr"></span>
               <span class="pcb-pad bl"></span><span class="pcb-pad br"></span>
 
@@ -287,17 +259,20 @@
                     <div id="infoKicker" class="info-node-kicker">MCU MAESTRO · 5.0V</div>
                     <h2 id="infoTitle" class="info-node-title">Arduino Nano V3</h2>
                   </div>
-                  <span id="infoStatus" class="badge badge-safe">PASS</span>
+                  <div class="info-head-actions">
+                    <span id="infoStatus" class="badge badge-safe">PASS</span>
+                    <button id="btnCloseInspector" class="inspector-close-btn" type="button" title="Ocultar inspector para ampliar vista 3D">✕</button>
+                  </div>
                 </div>
 
-                <div class="tab-bar" role="tablist" style="margin-top: 12px;">
+                <div class="tab-bar" role="tablist" style="margin-top: 10px;">
                   <button class="tab-btn active" type="button" data-infotab="resumen">RESUMEN</button>
                   <button class="tab-btn" type="button" data-infotab="pines">PINES</button>
                   <button class="tab-btn" type="button" data-infotab="electrico">ELÉCTRICO</button>
                   <button class="tab-btn" type="button" data-infotab="specs">ESPECIF.</button>
                 </div>
 
-                <div id="infoBody" class="info-body" style="margin-top: 12px;"></div>
+                <div id="infoBody" class="info-body" style="margin-top: 10px;"></div>
               </div>
 
               <div class="info-nav-footer">
@@ -306,6 +281,43 @@
                 <button id="nextNodeBtn" class="btn-outline" type="button">Siguiente →</button>
               </div>
             </aside>
+          </div>
+
+          <!-- Executive Summary & KPIs below 3D Hero -->
+          <div class="hero-intro-block">
+            <span class="eyebrow">Arquitectura Maestro-Esclavo Heterogénea (AVR 5V + RISC-V 3.3V)</span>
+            <h1 class="hero-title">Mesa Interactiva: Caja Cultural "Voces de Amarilis"</h1>
+            <p class="lead-copy">
+              Sistema embebido multimedia desacoplado en dos microcontroladores: el <strong>Arduino Nano V3</strong>
+              (ATmega328P @ 5 V) gobierna los 4 sensores capacitivos <strong>TTP223</strong>, el audio MP3 por
+              <strong>DFPlayer Mini</strong> y la sincronización por hardware <code>BUSY → D12</code>, mientras el
+              <strong>ESP32-C3 SuperMini</strong> (RISC-V @ 160 MHz) decodifica video <code>128×64</code> desde
+              <strong>MicroSD SPI (20 MHz)</strong> hacia la pantalla <strong>OLED SSD1306 I2C (800 kHz)</strong>.
+            </p>
+          </div>
+
+          <!-- 4 KPI Pills -->
+          <div class="kpi-grid">
+            <div class="kpi-pill">
+              <span class="kpi-label">Pipeline Video 128×64</span>
+              <span class="kpi-value">77.3 FPS máx / 30 FPS estables</span>
+              <span class="kpi-sub">12.94 ms/cuadro · 38.8% ocupación bus</span>
+            </div>
+            <div class="kpi-pill">
+              <span class="kpi-label">Sincronía Audio-Video</span>
+              <span class="kpi-value">1.05 ms Sync BUSY</span>
+              <span class="kpi-sub">Flanco D12 + UART 115200 bps (D6→GPIO20)</span>
+            </div>
+            <div class="kpi-pill">
+              <span class="kpi-label">Etapa Potencia PAM8610 BTL</span>
+              <span class="kpi-value">1.392 A @ 8Ω PASS</span>
+              <span class="kpi-sub">6.244 W/ch · margen seguro &lt; 2.00 A</span>
+            </div>
+            <div class="kpi-pill">
+              <span class="kpi-label">Presupuesto Auditado</span>
+              <span class="kpi-value">S/ 235.50 BOM 23 ítems</span>
+              <span class="kpi-sub">Base S/ 192.50 + Video S/ 43.00</span>
+            </div>
           </div>
 
           <!-- Horizontal Hardware Component Strip (All 22 Real Photos) -->

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1800" height="1050" viewBox="0 0 1800 1050">
+<defs>
+  <filter id="cardShadow" x="-4%" y="-4%" width="108%" height="110%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.06"/></filter>
+  <marker id="arrSafe" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#059669"/></marker>
+  <marker id="arrRed" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/></marker>
+</defs>
+<rect x="0.0" y="0.0" width="1800.0" height="1050.0" rx="0.0" ry="0.0" fill="#FFFFFF" stroke="none" stroke-width="0" />
+<text x="900.0" y="42.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="23.5" font-weight="700" fill="#0F172A" text-anchor="middle" >Auditoría Eléctrica SPICE y Rendimiento Dual-MCU — &quot;Voces de Amarilis&quot;</text>
+<text x="900.0" y="68.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.0" font-weight="500" fill="#475569" text-anchor="middle" >Resultados numéricos verificados (simulacion_resultados.json / reproductor_multimedia_amarilis.cir) — Estado Global: PASS (8 Ω)</text>
+<path d="M 40.0 86.0 L 1760.0 86.0" fill="none" stroke="#E2E8F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="36.0" y="102.0" width="848.0" height="430.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.6" filter="url(#cardShadow)"/>
+<rect x="36.0" y="102.0" width="848.0" height="54.0" rx="10.0" ry="10.0" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2" />
+<text x="56.0" y="127.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0F172A" text-anchor="start" >A. Presupuesto de Tiempo por Fotograma OLED (128×64 = 1024 B)</text>
+<text x="56.0" y="146.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="500" fill="#475569" text-anchor="start" >SPI 20 MHz (1.05 ms) + I2C 800 kHz (11.54 ms) + Sync (0.35 ms) = 12.94 ms → Techo 77.3 FPS</text>
+<rect x="916.0" y="102.0" width="848.0" height="430.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.6" filter="url(#cardShadow)"/>
+<rect x="916.0" y="102.0" width="848.0" height="54.0" rx="10.0" ry="10.0" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2" />
+<text x="936.0" y="127.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0F172A" text-anchor="start" >B. Consumo en Bus 12V (Fuente 12V 2A): Comparativa Crítica 8 Ω vs. 4 Ω</text>
+<text x="936.0" y="146.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="500" fill="#475569" text-anchor="start" >Volumen 100%, Ganancia 32 dB (PAM8610 BTL) · Límite adaptador = 2.00 A (24 W)</text>
+<rect x="36.0" y="554.0" width="848.0" height="430.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.6" filter="url(#cardShadow)"/>
+<rect x="36.0" y="554.0" width="848.0" height="54.0" rx="10.0" ry="10.0" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2" />
+<text x="56.0" y="579.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0F172A" text-anchor="start" >C. Estabilizador +5.00V (LM2596) ante Ráfaga SPI +180 mA (Dupont 0.15 Ω)</text>
+<text x="56.0" y="598.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="500" fill="#475569" text-anchor="start" >Simulación ODE RK45: impacto del capacitor electrolítico local 100 µF + 100 nF (18.11×)</text>
+<rect x="916.0" y="554.0" width="848.0" height="430.0" rx="12.0" ry="12.0" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.6" filter="url(#cardShadow)"/>
+<rect x="916.0" y="554.0" width="848.0" height="54.0" rx="10.0" ry="10.0" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2" />
+<text x="936.0" y="579.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0F172A" text-anchor="start" >D. Adaptación Lógica UART Nano D6 (5.00V) → ESP32-C3 GPIO20 (3.3V)</text>
+<text x="936.0" y="598.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="500" fill="#475569" text-anchor="start" >Divisor 1kΩ + 2kΩ (R2=1k, R3+R4=2k) vs. Conexión directa destructiva (ESD &gt; 10 mA)</text>
+<rect x="84.0" y="198.0" width="756.0" height="200.0" rx="0.0" ry="0.0" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2" />
+<path d="M 84.0 198.0 L 84.0 398.0" fill="none" stroke="#E2E8F0" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="84.0" y="416.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle" >0 ms</text>
+<path d="M 252.0 198.0 L 252.0 398.0" fill="none" stroke="#E2E8F0" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="252.0" y="416.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle" >10 ms</text>
+<path d="M 420.0 198.0 L 420.0 398.0" fill="none" stroke="#E2E8F0" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="420.0" y="416.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle" >20 ms</text>
+<path d="M 588.0 198.0 L 588.0 398.0" fill="none" stroke="#E2E8F0" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="588.0" y="416.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle" >30 ms</text>
+<path d="M 756.0 198.0 L 756.0 398.0" fill="none" stroke="#E2E8F0" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="756.0" y="416.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle" >40 ms</text>
+<path d="M 301.4 198.0 L 301.4 398.0" fill="none" stroke="#7C3AED" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,4"/>
+<path d="M 643.9 198.0 L 643.9 398.0" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,4"/>
+<path d="M 756.0 198.0 L 756.0 398.0" fill="none" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,4"/>
+<text x="301.4" y="190.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#7C3AED" text-anchor="middle" >12.94 ms (77.3 FPS máx)</text>
+<text x="643.9" y="190.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#059669" text-anchor="middle" >30 FPS (33.33 ms)</text>
+<text x="756.0" y="176.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#2563EB" text-anchor="middle" >25 FPS (40.00 ms)</text>
+<text x="84.0" y="215.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="start" >1. Ciclo Activo Medido (SPI 20M + I2C 800k + Decode)</text>
+<rect x="84.0" y="222.0" width="17.6" height="34.0" rx="0.0" ry="0.0" fill="#0D9488" stroke="#0F766E" stroke-width="1" />
+<rect x="101.6" y="222.0" width="193.9" height="34.0" rx="0.0" ry="0.0" fill="#7C3AED" stroke="#5B21B6" stroke-width="1" />
+<rect x="295.5" y="222.0" width="5.9" height="34.0" rx="0.0" ry="0.0" fill="#0891B2" stroke="#0E7490" stroke-width="1" />
+<text x="198.6" y="243.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" >11.54 ms (I2C)</text>
+<text x="309.4" y="243.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#7C3AED" text-anchor="start" >12.94 ms totales (1800+ cuadros &gt;1 min OK)</text>
+<text x="84.0" y="281.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="start" >2. Ventana 30 FPS Sostenidos (Ocupación CPU/Bus: 38.8%)</text>
+<rect x="84.0" y="288.0" width="17.6" height="34.0" rx="0.0" ry="0.0" fill="#0D9488" stroke="#0F766E" stroke-width="1" />
+<rect x="101.6" y="288.0" width="193.9" height="34.0" rx="0.0" ry="0.0" fill="#7C3AED" stroke="#5B21B6" stroke-width="1" />
+<rect x="295.5" y="288.0" width="5.9" height="34.0" rx="0.0" ry="0.0" fill="#0891B2" stroke="#0E7490" stroke-width="1" />
+<text x="198.6" y="309.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" >11.54 ms (I2C)</text>
+<rect x="301.4" y="288.0" width="342.6" height="34.0" rx="0.0" ry="0.0" fill="#D1FAE5" stroke="#059669" stroke-width="1.4" stroke-dasharray="4,3" />
+<text x="472.7" y="309.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle" >+20.39 ms libre</text>
+<text x="84.0" y="347.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="start" >3. Ventana Firmware Configurada @ 25 FPS (40.00 ms)</text>
+<rect x="84.0" y="354.0" width="17.6" height="34.0" rx="0.0" ry="0.0" fill="#0D9488" stroke="#0F766E" stroke-width="1" />
+<rect x="101.6" y="354.0" width="193.9" height="34.0" rx="0.0" ry="0.0" fill="#7C3AED" stroke="#5B21B6" stroke-width="1" />
+<rect x="295.5" y="354.0" width="5.9" height="34.0" rx="0.0" ry="0.0" fill="#0891B2" stroke="#0E7490" stroke-width="1" />
+<text x="198.6" y="375.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" >11.54 ms (I2C)</text>
+<rect x="301.4" y="354.0" width="454.6" height="34.0" rx="0.0" ry="0.0" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.4" stroke-dasharray="4,3" />
+<text x="528.7" y="375.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#2563EB" text-anchor="middle" >+27.06 ms libre</text>
+<rect x="84.0" y="434.0" width="756.0" height="76.0" rx="8.0" ry="8.0" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.3" />
+<text x="104.0" y="459.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#065F46" text-anchor="start" >Desglose exacto:</text>
+<text x="104.0" y="480.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >• MicroSD SPI @ 20 MHz: 0.4096 ms bruto / 1.05 ms con FAT32 (&lt; 1.2 ms objetivo)</text>
+<text x="104.0" y="499.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="start" >• OLED SSD1306 I2C @ 800 kHz: 11.54 ms ráfaga (11.84 ms con cmds) · Subida pull-up 4.7kΩ = 79.6 ns</text>
+<rect x="996.0" y="198.0" width="420.0" height="250.0" rx="0.0" ry="0.0" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2" />
+<path d="M 996.0 448.0 L 1416.0 448.0" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="988.0" y="452.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >0.0 A</text>
+<path d="M 996.0 406.3 L 1416.0 406.3" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="988.0" y="410.3" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >0.5 A</text>
+<path d="M 996.0 364.7 L 1416.0 364.7" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="988.0" y="368.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >1.0 A</text>
+<path d="M 996.0 323.0 L 1416.0 323.0" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="988.0" y="327.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >1.5 A</text>
+<path d="M 996.0 281.3 L 1416.0 281.3" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="988.0" y="285.3" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >2.0 A</text>
+<path d="M 996.0 239.7 L 1416.0 239.7" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="988.0" y="243.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >2.5 A</text>
+<path d="M 996.0 198.0 L 1416.0 198.0" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="988.0" y="202.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >3.0 A</text>
+<rect x="996.0" y="198.0" width="420.0" height="83.3" rx="0.0" ry="0.0" fill="#FEE2E2" stroke="none" stroke-width="1.5" />
+<path d="M 996.0 281.3 L 1416.0 281.3" fill="none" stroke="#DC2626" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6,4"/>
+<text x="1006.0" y="273.3" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#991B1B" text-anchor="start" >Límite Fuente 12V = 2.00 A (OCP)</text>
+<rect x="1056.0" y="332.0" width="100.0" height="116.0" rx="4.0" ry="4.0" fill="#059669" stroke="#065F46" stroke-width="1.5" />
+<text x="1106.0" y="324.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#065F46" text-anchor="middle" >1.392 A (PASS)</text>
+<text x="1106.0" y="466.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#0F172A" text-anchor="middle" >Parlantes 8 Ω</text>
+<text x="1106.0" y="482.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#059669" text-anchor="middle" >12.49 W total</text>
+<rect x="1246.0" y="227.5" width="100.0" height="220.5" rx="4.0" ry="4.0" fill="#DC2626" stroke="#991B1B" stroke-width="1.5" />
+<text x="1296.0" y="219.5" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#991B1B" text-anchor="middle" >2.646 A (WARN)</text>
+<text x="1296.0" y="466.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#0F172A" text-anchor="middle" >Parlantes 4 Ω</text>
+<text x="1296.0" y="482.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#DC2626" text-anchor="middle" >24.01 W (&gt; 2A)</text>
+<rect x="1438.0" y="198.0" width="304.0" height="308.0" rx="10.0" ry="10.0" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.3" />
+<text x="1590.0" y="224.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle" >Balance de Potencia (12V)</text>
+<text x="1590.0" y="252.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#059669" text-anchor="middle" >8 Ω @ 100% vol (32 dB):</text>
+<text x="1590.0" y="276.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="middle" >6.244 W/ch · 12.488 W total</text>
+<text x="1590.0" y="300.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle" >I_12V = 1.392 A (PASS SEGURO)</text>
+<text x="1590.0" y="324.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#DC2626" text-anchor="middle" >4 Ω @ 100% vol (32 dB):</text>
+<text x="1590.0" y="348.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="middle" >12.003 W/ch · 24.005 W total</text>
+<text x="1590.0" y="372.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#DC2626" text-anchor="middle" >I_12V = 2.646 A (&gt; 2.00 A OCP)</text>
+<text x="1590.0" y="396.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#475569" text-anchor="middle" >Si se usa 4 Ω, limitar pot</text>
+<text x="1590.0" y="420.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#475569" text-anchor="middle" >≤ 82.8% (rec. ≤ 70%).</text>
+<text x="1590.0" y="444.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#EA580C" text-anchor="middle" >Riel 5V (LM2596): 157 mA nom</text>
+<text x="1590.0" y="468.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#EA580C" text-anchor="middle" >/ 347 mA pico (&lt; 3.0 A)</text>
+<rect x="100.0" y="646.0" width="410.0" height="250.0" rx="0.0" ry="0.0" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2" />
+<path d="M 100.0 896.0 L 510.0 896.0" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="92.0" y="900.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >0 mV</text>
+<path d="M 100.0 854.3 L 510.0 854.3" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="92.0" y="858.3" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >50 mV</text>
+<path d="M 100.0 812.7 L 510.0 812.7" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="92.0" y="816.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >100 mV</text>
+<path d="M 100.0 771.0 L 510.0 771.0" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="92.0" y="775.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >150 mV</text>
+<path d="M 100.0 729.3 L 510.0 729.3" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="92.0" y="733.3" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >200 mV</text>
+<path d="M 100.0 687.7 L 510.0 687.7" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="92.0" y="691.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >250 mV</text>
+<path d="M 100.0 646.0 L 510.0 646.0" fill="none" stroke="#E2E8F0" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="92.0" y="650.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >300 mV</text>
+<path d="M 100.0 883.5 L 510.0 883.5" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,3"/>
+<text x="502.0" y="851.5" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#065F46" text-anchor="end" >Límite caída &lt; 15 mV</text>
+<rect x="156.0" y="682.0" width="100.0" height="214.0" rx="4.0" ry="4.0" fill="#DC2626" stroke="#991B1B" stroke-width="1.5" />
+<text x="206.0" y="674.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#991B1B" text-anchor="middle" >256.77 mV (FAIL)</text>
+<text x="206.0" y="914.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#0F172A" text-anchor="middle" >Sin 100 µF</text>
+<text x="206.0" y="930.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#DC2626" text-anchor="middle" >V_min = 4.7297 V</text>
+<rect x="346.0" y="884.2" width="100.0" height="11.8" rx="4.0" ry="4.0" fill="#059669" stroke="#065F46" stroke-width="1.5" />
+<text x="396.0" y="876.2" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#065F46" text-anchor="middle" >14.18 mV (PASS)</text>
+<text x="396.0" y="914.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#0F172A" text-anchor="middle" >Con 100 µF + 100 nF</text>
+<text x="396.0" y="930.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#059669" text-anchor="middle" >V_min = 4.9723 V</text>
+<rect x="534.0" y="646.0" width="328.0" height="308.0" rx="10.0" ry="10.0" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.3" />
+<text x="698.0" y="672.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#9A3412" text-anchor="middle" >Reducción de Droop: 18.11×</text>
+<text x="698.0" y="704.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="middle" >Cable Dupont LM2596 → ESP32/SD:</text>
+<text x="698.0" y="730.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="500" fill="#475569" text-anchor="middle" >R_wire = 0.15 Ω · L_wire = 0.35 µH</text>
+<text x="698.0" y="756.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="middle" >Carga base 90 mA + ráfaga +180 mA</text>
+<text x="698.0" y="782.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="500" fill="#475569" text-anchor="middle" >(270 mA pico en lectura SPI 20 MHz)</text>
+<text x="698.0" y="808.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#DC2626" text-anchor="middle" >• Sin 100 µF: droop 256.77 mV</text>
+<text x="698.0" y="834.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="500" fill="#DC2626" text-anchor="middle" >  (caída total 270.27 mV, brownout)</text>
+<text x="698.0" y="860.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle" >• Con 100 µF + 100 nF: droop 14.18 mV</text>
+<text x="698.0" y="886.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#059669" text-anchor="middle" >  (overshoot 0.0 mV, &lt; 15 mV PASS)</text>
+<rect x="996.0" y="646.0" width="400.0" height="250.0" rx="0.0" ry="0.0" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2" />
+<rect x="996.0" y="646.0" width="400.0" height="86.4" rx="0.0" ry="0.0" fill="#FEE2E2" stroke="none" stroke-width="1.5" />
+<rect x="996.0" y="732.4" width="400.0" height="51.1" rx="0.0" ry="0.0" fill="#DCFCE7" stroke="none" stroke-width="1.5" />
+<path d="M 996.0 896.0 L 1396.0 896.0" fill="none" stroke="#CBD5E1" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,3"/>
+<text x="988.0" y="900.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >0.0 V</text>
+<path d="M 996.0 850.5 L 1396.0 850.5" fill="none" stroke="#CBD5E1" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,3"/>
+<text x="988.0" y="854.5" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >1.0 V</text>
+<path d="M 996.0 805.1 L 1396.0 805.1" fill="none" stroke="#CBD5E1" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,3"/>
+<text x="988.0" y="809.1" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >2.0 V</text>
+<path d="M 996.0 759.6 L 1396.0 759.6" fill="none" stroke="#CBD5E1" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,3"/>
+<text x="988.0" y="763.6" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >3.0 V</text>
+<path d="M 996.0 714.2 L 1396.0 714.2" fill="none" stroke="#CBD5E1" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,3"/>
+<text x="988.0" y="718.2" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >4.0 V</text>
+<path d="M 996.0 668.7 L 1396.0 668.7" fill="none" stroke="#CBD5E1" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,3"/>
+<text x="988.0" y="672.7" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="600" fill="#475569" text-anchor="end" >5.0 V</text>
+<path d="M 996.0 732.4 L 1396.0 732.4" fill="none" stroke="#DC2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,3"/>
+<path d="M 996.0 783.5 L 1396.0 783.5" fill="none" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,3"/>
+<text x="1390.0" y="662.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#991B1B" text-anchor="end" >ZONA DAÑO ESD (&gt; 3.60 V)</text>
+<text x="1184.0" y="758.4" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#065F46" text-anchor="middle" >Banda VIH</text>
+<text x="1184.0" y="772.4" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10" font-weight="600" fill="#065F46" text-anchor="middle" >2.48–3.60V</text>
+<rect x="1036.0" y="704.5" width="96.0" height="191.5" rx="4.0" ry="4.0" fill="#DC2626" stroke="#991B1B" stroke-width="1.5" />
+<text x="1084.0" y="696.5" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#991B1B" text-anchor="middle" >4.213 V (31.47 mA)</text>
+<text x="1084.0" y="914.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="middle" >Directo D6 (5V)</text>
+<text x="1084.0" y="930.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#DC2626" text-anchor="middle" >DAÑO (&gt;10 mA)</text>
+<rect x="1248.0" y="744.5" width="108.0" height="151.5" rx="4.0" ry="4.0" fill="#059669" stroke="#065F46" stroke-width="1.5" />
+<rect x="1252.0" y="762.5" width="100.0" height="24.0" rx="12.0" ry="12.0" fill="#DCFCE7" stroke="#065F46" stroke-width="1.4" />
+<text x="1302.0" y="778.2" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#065F46" text-anchor="middle" >3.333 V PASS</text>
+<text x="1302.0" y="914.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="middle" >Divisor 1kΩ+2kΩ</text>
+<text x="1302.0" y="930.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#059669" text-anchor="middle" >3.306 V real AVR</text>
+<rect x="1420.0" y="646.0" width="322.0" height="308.0" rx="10.0" ry="10.0" fill="#FAF5FF" stroke="#C4B5FD" stroke-width="1.3" />
+<text x="1581.0" y="672.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#5B21B6" text-anchor="middle" >Topología 3× 1kΩ + UART R1</text>
+<text x="1581.0" y="704.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#7C3AED" text-anchor="middle" >R2 = 1 kΩ (serie D6 → GPIO20)</text>
+<text x="1581.0" y="730.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#475569" text-anchor="middle" >R3 + R4 = 2 kΩ (rama a GND)</text>
+<text x="1581.0" y="756.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle" >V_out = 5.00×(2k/3k) = 3.333 V</text>
+<text x="1581.0" y="782.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#0F172A" text-anchor="middle" >I_div = 1.667 mA · P = 2.78 mW c/u</text>
+<text x="1581.0" y="808.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle" >fc_RC = 29.84 MHz (tr = 11.0 ns)</text>
+<text x="1581.0" y="834.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="600" fill="#2563EB" text-anchor="middle" >Bit UART 115200 bps = 8.68 µs OK</text>
+<text x="1581.0" y="860.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="middle" >UART D11 → R1(1k) → DFPlayer RX:</text>
+<text x="1581.0" y="886.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#059669" text-anchor="middle" >V_clamp=3.747V · I=1.22 mA PASS</text>
+<text x="40.0" y="1022.0" font-family="&#x27;Segoe UI&#x27;, Arial, Helvetica, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="start" >Nota. Valores extraídos de simulacion_resultados.json (reproductor_multimedia_amarilis.cir) y verificados para fuente 12V 2A y carga 8 Ω.</text>
+</svg>
